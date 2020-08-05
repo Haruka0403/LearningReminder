@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body {
+  background: #f0f0f0;
+  font-family: "\30D2\30E9\30AE\30CE\4E38\30B4   Pro W4", "\30D2\30E9\30AE\30CE\4E38\30B4   Pro", "Hiragino Maru Gothic Pro", "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "Hiragino Kaku Gothic Pro", "HG\4E38\FF7A\FF9E\FF7C\FF6F\FF78M-PRO", "HGMaruGothicMPRO";
+}
+
+nav {
+  background-color: powderblue;
+}
+
+section {
+  color: #3f3f3f;
+}
+
+.btn-border {
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  background-color: powderblue;
+  font-size: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: 0.4s;
+}
+
+.btn-border:hover {
+  background-color: white;
+  border-color: powderblue;
+  color: powderblue;
+}
+
