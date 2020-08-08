@@ -11,13 +11,13 @@ section{
   color:#3f3f3f;
 }
 
-
+// ボタン
 .btn-border {
   display: inline-block;
   max-width: 180px;
   text-align: left;
   background-color: powderblue;
-  // border: 2px solid grey;
+  border: 1px solid grey;
   font-size: 15px;
   color: white;
   text-decoration: none;
@@ -31,4 +31,48 @@ section{
   background-color: white;
   border-color: powderblue;
   color: powderblue;
+}
+
+// モーダル
+
+#mask {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+#modal {
+  background: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 4px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  
+}
+
+#modal > p {
+  text-align: center;
+  padding: 12px 0;
+}
+
+#make {
+  text-align: center;
+  padding: 12px 0;
+  margin: 16px auto 0;
+}
+
+
+#mask.hidden {
+  display: none;
+}
+
+#modal.hidden {
+  transform: translate(0, -500px);
 }

@@ -52,10 +52,9 @@
          <textarea class="form-control" name="comment" rows="5">編集前のデータ</textarea>
         </div>
         
-        <!--input valueのところに、phpで今日の日付を取得、valueとmimに記入で未来日のみしか選択できないように設定する-->
         <div class="form-group">
          <label for="start" class="mb-0 h3">リマインド開始日</label>
-   　　   　<input type="date" class="form-control" name="start" value="2020-07-22" min="2020-07-22"> 
+         <input type="date" class="form-control" name="start" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>">
         </div>
         
        

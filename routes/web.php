@@ -23,9 +23,12 @@ Auth::routes();
 // カテゴリーコントローラ
 Route::group(['middleware' => 'auth'], function() {    
     Route::get('/', 'CategoryController@top');
+    Route::post('/', 'CategoryController@create');
+    
     Route::get('/search','CategoryController@search');
     Route::get('/archive','CategoryController@archive');
     Route::get('/reminder','CategoryController@remind');
+    
 
 
 // アーカイブコントローラ
