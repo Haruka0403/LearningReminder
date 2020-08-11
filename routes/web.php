@@ -24,10 +24,11 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {    
     Route::get('/', 'CategoryController@top');
     Route::post('/', 'CategoryController@create');
+    Route::get('/reminder','CategoryController@remind');
+    
     
     Route::get('/search','CategoryController@search');
     Route::get('/archive','CategoryController@archive');
-    Route::get('/reminder','CategoryController@remind');
     
 
 

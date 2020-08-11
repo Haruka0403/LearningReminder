@@ -74,3 +74,9 @@ section {
   transform: translate(0, -500px);
 }
 
+.dotline {
+  border-top: 1px dashed #bbb;
+  width: 500px;
+  text-align: center;
+}
+

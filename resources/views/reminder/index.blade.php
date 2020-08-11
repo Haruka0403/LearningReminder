@@ -5,58 +5,60 @@
 
 @section('content')
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
    
-  <h2 class="col-9 mx-auto">リマインダー　一覧</h2>
+  <h2 class="col-md-7">リマインダー</h2>
   
-  <!--リマインダーテーブルのデータをひっぱてきて表示するコードを書く。テキスト１５参照-->
-   <div class="col-8 pt-2 pb-2 mb-3 mx-auto bg-light rounded">
-     <h4 class="mb-0">カテゴリー名 </h4>
+  <!--アーカイブテーブルのデータをひっぱてきて表示するコードを書く。テキスト１５参照-->
+   
+   <div class="col-md-6">
+    
+     <input type="hidden" name="id" value="{{$category_deta->id}}">
+    
+    <div class="card">
+    
+     <div class="card-header">
+       <h4 class="mb-0">{{$category_deta->name}}</h4>
+     </div>
+   
+    <div class="card-body pb-0">
+     <h5>
+      <span style="border-bottom: solid 5px powderblue;">Question</span>
+     </h5>
+     <p>問題文が表示される</p>
+      
+     <h5>
+      <span style="border-bottom: solid 5px powderblue;">Answer</span>
+     </h5>
+     <p>解答文が表示される</p>
+    </div>
+    
+    <!--<div class="row justify-content-center">-->
+    <!-- <div class="col-md-4 text-center">-->
+    <!--  詳細&ensp;<i class="fas fa-angle-double-right text-muted"></i>-->
+    <!-- </div>-->
+    <!--</div>-->
+    
+    <div class="col-md text-center">
+     <hr class="dotline m-0">
+    </div>
+    
+    <div class="row justify-content-center m-2">
+     <div class="col-md-4 text-center">
+      移動&ensp;<i class="fas fa-file-export"></i>
+     </div>
+     <div class="col-md-4 text-center">
+       消去&ensp;<i class="far fa-trash-alt"></i>
+     </div>
+    </div>
+    
+    <hr class="mt-0 mb-0">
+
    </div>
   </div>
-  
-  <!--消去、編集のコードを追記-->
-  <div class="row">
-   <div class="offset-md-8 text-secondary">
-    <i class="fas fa-file-export"></i>移動 &ensp;
-    <i class="far fa-trash-alt"></i>消去
-    </div>
-  </div>
-  
-  <div class="row">
-   <div class="col-8 mb-2 mx-auto bg-light rounded">
     
-    <a class="text-secondary" href="">
-     <h5>Qestion</h5>
-     <p>問題文が表示される</p>
-     
-     <h5>Answer</h5>
-     <p>解答文が表示される</p>
-     </a>
-     
-    </div>
   </div>
-  
-  
-  
-  <!--以下テスト表示-->
-   <div class="row">
-   <div class="offset-md-8 text-secondary">
-    <i class="fas fa-file-export"></i>移動 &ensp;
-    <i class="far fa-trash-alt"></i>消去
-    </div>
-  </div>
-  
-  <div class="row">
-  <div class="col-8 mb-2 mx-auto bg-light rounded">
-   <a class="text-secondary" href="">
-    <h5>Qestion</h5>
-    <p>問題文が表示される</p>
-    <h5>Answer</h5>
-    <p>解答文が表示される</p>
-    </a>
-  </div>
-  </div>
- 
 </div>
+
+
 @endsection
