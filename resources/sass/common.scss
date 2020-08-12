@@ -40,7 +40,6 @@ section{
 }
 
 // JSモーダル
-
 #mask {
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
@@ -101,8 +100,10 @@ section{
     background: #fff;
     left: 50%;
     padding: 40px;
+    border-radius: 4px;
     position: absolute;
     top: 50%;
     transform: translate(-50%,-50%);
     width: 60%;
+    text-align: center;
 }

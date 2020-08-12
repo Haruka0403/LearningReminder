@@ -48,13 +48,13 @@
       
       <!--JQモーダル：リマインダーカテゴリ編集-->
       <td width=80>
-       <a class="js-modal-open" href="" data-target="modal02"><i class="far fa-edit"></i></a>
+       <a class="js-modal-open" href="" data-target="modal02"><i class="far fa-edit text-dark"></i></a>
       </td>
       
  　    <!--JQモーダル：リマインダーカテゴリ消去-->
       <td width=80>
        <a class="js-modal-open" href="" data-target="modal03">
-        <i class="far fa-trash-alt"></i>
+        <i class="far fa-trash-alt text-dark"></i>
         </a>
       </td>
       
@@ -104,13 +104,13 @@
  <div class="modal__bg js-modal-close"></div>
  
  <div class="modal__content">
-  <p>このカテゴリーを消去しますか？</p>
+  <p>カテゴリー名編集</p>
   <a class="js-modal-close" href="">閉じる</a>
  </div><!--modal__content-->
  
 </div><!--modal-->
 
-JQモーダル消去ボタン
+<!--JQモーダル消去ボタン-->
 <div id="modal03" class="modal js-modal">
  
  <div class="modal__bg js-modal-close"></div>
