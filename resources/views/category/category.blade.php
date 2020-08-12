@@ -10,13 +10,14 @@
  <div class="row justify-content-center">
   <h2 class="col-md-7">カテゴリー</h2>
   
-    <!--モーダルボタン-->
+    <!--JSモーダルボタン-->
     <div class="col-md-2">
      <div id="open">
       <button type="" class="btn-border"> +カテゴリー</button>
      </div>
     </div>
  
+   <!--アーカイブ-->
  　<table class="table table-light rounded col-md-6">
   　 <thead class="text-muted">
   　  <tr>
@@ -29,12 +30,13 @@
   　  </tr>
   　</thead>
 
-<!--消去、編集のコードはテキスト１６を参照する-->
+<!--リマインダー関連-->
   　 <tbody>
   　  @foreach($posts as $category)
+ 　  <!--id-->
+ 　  <input type="hidden" name="id" value="{{$category->id}}">
   　  
-  　  <input type="hidden" name="id" value="{{$category->id}}">
-  　  
+  　 <!--リマインダーカテゴリ一覧--> 
   　  <tr>
    　  <td width=500>{{ \Str::limit($category->name, 100)}}</td>
    　   <!--アーカイブテーブルの中身をカウントして表示するコードを後で入れる-->
@@ -43,8 +45,19 @@
         <i class="fas fa-angle-double-right text-dark"></i>
        </a>
       </td>
- 　    <td width=80><i class="far fa-edit"></i></td>
-      <td width=80><i class="far fa-trash-alt"></i></td>
+      
+      <!--JQモーダル：リマインダーカテゴリ編集-->
+      <td width=80>
+       <a class="js-modal-open" href="" data-target="modal02"><i class="far fa-edit"></i></a>
+      </td>
+      
+ 　    <!--JQモーダル：リマインダーカテゴリ消去-->
+      <td width=80>
+       <a class="js-modal-open" href="" data-target="modal03">
+        <i class="far fa-trash-alt"></i>
+        </a>
+      </td>
+      
   　  </tr>
   　@endforeach
   　</tbody> 
@@ -54,7 +67,7 @@
  </div>
 </div>
 
-<!--モーダル設定-->
+<!--JSモーダル設定-->
 <!--背景-->
 <div id="mask" class="hidden"></div>
  
@@ -82,6 +95,31 @@
    <button type="submit" class="btn-border">作成</button>
   </div>
  </form>
- 
 </section>
+ 
+ 
+ <!--JQモーダル編集ボタン-->
+<div id="modal02" class="modal js-modal">
+ 
+ <div class="modal__bg js-modal-close"></div>
+ 
+ <div class="modal__content">
+  <p>このカテゴリーを消去しますか？</p>
+  <a class="js-modal-close" href="">閉じる</a>
+ </div><!--modal__content-->
+ 
+</div><!--modal-->
+
+JQモーダル消去ボタン
+<div id="modal03" class="modal js-modal">
+ 
+ <div class="modal__bg js-modal-close"></div>
+ 
+ <div class="modal__content">
+  <p>このカテゴリーを消去しますか？</p>
+  <a class="js-modal-close" href="">閉じる</a>
+ </div><!--modal__content-->
+ 
+</div><!--modal-->
+
 @endsection
