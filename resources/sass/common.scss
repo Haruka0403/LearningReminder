@@ -36,50 +36,8 @@ section{
 // 点線
 .dotline {
   border-top: 1px dashed #bbb;
-  width: 500px;
-}
-
-// JSモーダル
-#mask {
-  background: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
-#modal {
-  background: #fff;
-  width: 300px;
-  padding: 20px;
-  border-radius: 4px;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  
-}
-
-#modal > p {
-  text-align: center;
-  padding: 12px 0;
-}
-
-#make {
-  text-align: center;
-  padding: 12px 0;
-  margin: 16px auto 0;
-}
-
-
-#mask.hidden {
-  display: none;
-}
-
-#modal.hidden {
-  transform: translate(0, -500px);
+  width: 100%;
+  text-align:center;
 }
 
 // JQモーダル
@@ -104,6 +62,6 @@ section{
     position: absolute;
     top: 50%;
     transform: translate(-50%,-50%);
-    width: 60%;
+    width: 500px;
     text-align: center;
 }

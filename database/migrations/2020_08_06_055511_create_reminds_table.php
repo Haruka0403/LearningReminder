@@ -15,7 +15,7 @@ class CreateRemindsTable extends Migration
     {
         Schema::create('reminds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('categories_id');
+            $table->bigInteger('category_id');
             $table->string('question');
             $table->string('image_path')->nullable();
             $table->string('answer');

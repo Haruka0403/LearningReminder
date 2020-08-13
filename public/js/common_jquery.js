@@ -94,27 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-{
-  var open = document.getElementById('open');
-  var make = document.getElementById('make');
-  var modal = document.getElementById('modal');
-  var mask = document.getElementById('mask');
-  open.addEventListener('click', function () {
-    modal.classList.remove('hidden');
-    mask.classList.remove('hidden');
-  });
-  make.addEventListener('click', function () {
-    modal.classList.add('hidden');
-    mask.classList.add('hidden');
-  });
-  mask.addEventListener('click', function () {
-    // modal.classList.add('hidden');
-    // mask.classList.add('hidden');
-    make.click();
-  });
-} //JQ 
+ //JQ 
 
 $(function () {
   $('.js-modal-open').each(function () {
@@ -130,6 +110,20 @@ $(function () {
     return false;
   });
 });
+
+window.onload = function () {
+  var target = window.sessionStorage.getItem(['top_modal_target']);
+  var target = 'modal01';
+  console.log('enter onload');
+  console.log(target);
+
+  if (target != null && target != '') {
+    var modal = document.getElementById(target);
+    $(modal).fadeIn();
+  }
+
+  return false;
+};
 
 /***/ }),
 

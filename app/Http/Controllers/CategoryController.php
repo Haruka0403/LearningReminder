@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 use App\Category;
 
+use Illuminate\Support\Facades\Auth;
+
+use Validator;
+
 
 
 class CategoryController extends Controller
@@ -20,13 +24,23 @@ class CategoryController extends Controller
   
     public function create (Request $request)
     {
-        $this->validate($request, Category::$rules);
+        // 以下のコードだったら、自動で元の画面に戻る
+        // $this->validate($request, Category::$rules);
+        
+        // varidatorのインスタンスを作る
+        $validator = Validator::make($request->all(), Category::$rules);
+        // varidorを実行して、もしエラーがあったら、
+        if ($validator->fails()) {
+        // withInput(エラーの対象のデータをそのまま渡す)
+        // return...with('modal','modal01') 変数$modal= modal01 
+          return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal01');
+        }
 
         $category = new Category;
         $form = $request->all();
         
-        // 以下あってもなくても良い？
-        // $category->user_id = null;
+        // user_idをAuthから引っ張って来る
+        $category->user_id = Auth::id();
         
         unset($form['_token']);
         
@@ -48,10 +62,43 @@ class CategoryController extends Controller
     //     if (empty($cotegory)) {
     //     abort(404);    
     //   }
-        return view('reminder.index',['category_deta' => $category]);
+        return view('reminder.index',['category_data' => $category]);
     }
     
+    // public function edit (Request $request)
+    // {
+    //     $category = Category::find($request->id);
+    //     // if (empty($news)) {
+    //     // abort(404);    
+    //     // }
+    //     //retunの場所をどこにするべきか分からない
+    //     return view('category.category',['category_data' => $category]);
+    // }
     
+    // public function update (Request $request)
+    // {
+    //     // varidation
+    //     $this->validate($request, Category::$rules);
+        
+    //     //Modelからデータを取得
+    //     $category = Category::find($request->id);
+        
+    //     // 送信されてきたフォームデータを格納
+    //     $category_deta = $request->all();
+    //     unset($category_deta['_token']);
+
+    //     // 該当するデータを上書きして保存する
+    //     $category->fill($category_deta)->save();
+
+    //     return redirect('/');
+    // }
+    
+     public function get (Request $request)
+    {
+        $category = Category::find($request->id);
+    
+        return view('category.category',['category_delete' => $category]);
+    }
     
     
     public function search ()

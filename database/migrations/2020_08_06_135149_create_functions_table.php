@@ -15,8 +15,8 @@ class CreateFunctionsTable extends Migration
     {
         Schema::create('functions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('reminds_id');
-            $table->bigInteger('remind_times');
+            $table->bigInteger('remind_id');
+            $table->integer('remind_times');
             $table->string('remind_at');
             
             $table->timestamps();

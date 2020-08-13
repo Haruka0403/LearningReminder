@@ -25,11 +25,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'CategoryController@top');
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind');
+    Route::get('/edit','CategoryController@edit');
+    // Route::post('/edit', 'CategoryController@update');
     
+    // Route::get('/','CategoryController@get');
     
     Route::get('/search','CategoryController@search');
     Route::get('/archive','CategoryController@archive');
     
+// リマインドコントローラ
+    Route::get('/create','RemindController@add');
 
 
 // アーカイブコントローラ

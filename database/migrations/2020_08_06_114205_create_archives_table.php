@@ -15,7 +15,7 @@ class CreateArchivesTable extends Migration
     {
         Schema::create('archives', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('reminds_id');
+            $table->bigInteger('remind_id');
             $table->string('question');
             $table->string('image_path')->nullable();
             $table->string('answer');
