@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 use App\Category;
 
+use App\Remind;
+
 use Illuminate\Support\Facades\Auth;
 
 use Validator;
@@ -27,15 +29,13 @@ class CategoryController extends Controller
         // 以下のコードだったら、自動で元の画面に戻る
         // $this->validate($request, Category::$rules);
         
-        // varidatorのインスタンスを作る
+       
         $validator = Validator::make($request->all(), Category::$rules);
-        // varidorを実行して、もしエラーがあったら、
-        if ($validator->fails()) {
-        // withInput(エラーの対象のデータをそのまま渡す)
-        // return...with('modal','modal01') 変数$modal= modal01 
+        
+      if ($validator->fails()) {
           return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal01');
         }
-
+        
         $category = new Category;
         $form = $request->all();
         
@@ -47,22 +47,26 @@ class CategoryController extends Controller
         $category->fill($form);
         $category->save();
         
-        // もしエラーがあったら、モーダルウィンドウ のままエラーを表示
-        // なければトップ画面に戻る
-        // if (count($errors) > 0) {
-            
-        // }
         return redirect('/');
+      
     }
     
     public function remind (Request $request)
     {
+        // カテゴリータイトルの継承
         $category = Category::find($request->id);
-    // 以下を入力すると、そっちが反映されるのはなぜか（idをhiddnにしているから..?
-    //     if (empty($cotegory)) {
-    //     abort(404);    
-    //   }
-        return view('reminder.index',['category_data' => $category]);
+          // 以下を入力すると、そっちが反映されるのはなぜか..
+          //     if (empty($cotegory)) {
+          //     abort(404);    
+          //   }
+          
+        //Rコントローラ@creatで送信したデータの反映。
+        //下のコードだとカテゴリ名(id)関係なく全てのデータをとってきてしまうので、whereを使用する。
+          // $posts = Remind::all();
+        $c_category_id = $category ->id;
+        $r_data = Remind::where('category_id' , $c_category_id)->get(['question']);
+      
+        return view('reminder.index',['category_data' => $category , 'r_data' => $r_data]);
     }
     
     // public function edit (Request $request)

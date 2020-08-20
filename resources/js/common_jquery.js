@@ -1,6 +1,6 @@
 'use strict';
 
-//JQ 
+//モーダル
 $(function(){
     $('.js-modal-open').each(function(){
         $(this).on('click',function(){
@@ -15,4 +15,5 @@ $(function(){
         return false;
     }); 
 });
+
 

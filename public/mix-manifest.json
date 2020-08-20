@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/common.css": "/css/common.css",
-    "/js/common_jquery.js": "/js/common_jquery.js"
+    "/js/common_jquery.js": "/js/common_jquery.js",
+    "/js/datetime.js": "/js/datetime.js"
 }

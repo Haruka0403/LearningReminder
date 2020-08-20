@@ -33,6 +33,30 @@ section{
   color: powderblue;
 }
 
+// ボタン2(サイズ大)
+.btn-border2 {
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  line-height: 10px;
+  background-color: powderblue;
+  border: 1px solid grey;
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 10px;
+  border-radius: 4px;
+  transition: .4s;
+}
+
+.btn-border2:hover {
+  background-color: white;
+  border-color: powderblue;
+  color: powderblue;
+}
+
 // 点線
 .dotline {
   border-top: 1px dashed #bbb;
@@ -64,4 +88,28 @@ section{
     transform: translate(-50%,-50%);
     width: 500px;
     text-align: center;
+}
+
+// フォーム+-
+#input_plural {
+    margin: 10px 0;
+}
+ 
+#input_plural input.form-control {
+    display: inline-block;
+    width: 75%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #555;
+}
+ 
+#input_plural input.pluralBtn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+    padding: 0;
+    margin: 0;
 }

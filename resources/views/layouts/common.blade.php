@@ -90,9 +90,10 @@
       @yield('content')
     </section>
     
-    <!--JavaScript-->
+    <!--common_jquery.js-->
     <script src="{{ mix('js/common_jquery.js') }}"></script>
 
   
 </body>
 </html>
+@yield('js')

@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
     
 // リマインドコントローラ
     Route::get('/create','RemindController@add');
+    Route::post('/create','RemindController@create');
 
 
 // アーカイブコントローラ

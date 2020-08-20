@@ -10,7 +10,6 @@ class Remind extends Model
     protected $guarded = array('id');
 
     public static $rules = array(
-        'categories_id'=> 'required',
         'question'=> 'required',
         'answer'=> 'required',
         'hint'=> 'required',

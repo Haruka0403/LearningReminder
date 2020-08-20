@@ -31,13 +31,13 @@
  <!--リマインダー関連-->
    　 <tbody>
    　  @foreach($posts as $category)
- <!--id(hidden)-->
+ <!--id(hidden)@createから送信されたカテゴリー名をredirect→@topを通し、viewに表示するためにidが必要-->
   　  <input type="hidden" name="id" value="{{$category->id}}">
    　  
  <!--リマインダーカテゴリ一覧--> 
    　  <tr>
     　  <td width=500>{{ \Str::limit($category->name, 50)}}</td>
-    　   <!--アーカイブテーブルの中身をカウントして表示するコードを後で入れる-->
+    　   <!--中身をカウントして表示するコードを後で入れる-->
        <td width=200>10&ensp;
         <a href="{{ action('CategoryController@remind',['id' => $category->id ,'name' => $category->name]) }}">
          <i class="fas fa-angle-double-right text-dark"></i>
@@ -64,7 +64,7 @@
    </div>
   </div>
  
- <!--モーダル新規作成ボタン-->
+ <!--モーダル新規作成-->
  <div id="modal01" class="modal js-modal">
   
   <div class="modal__bg js-modal-close"></div>
@@ -138,8 +138,10 @@
  </div>
 
 </div>
+@endsection
 
-@if(isset($modal))
+@section('js')
+@if(isset($modal) && $modal != null && $modal != '')
 <script>
   window.onload = function() {
     var target = '{{$modal}}';
@@ -150,7 +152,7 @@
       $(modal).fadeIn();
     }
     return false;
-  }
+}
 </script>
 @endif
 @endsection
