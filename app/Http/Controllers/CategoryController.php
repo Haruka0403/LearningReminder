@@ -60,13 +60,10 @@ class CategoryController extends Controller
           //     abort(404);    
           //   }
           
-        //Rコントローラ@creatで送信したデータの反映。
-        //下のコードだとカテゴリ名(id)関係なく全てのデータをとってきてしまうので、whereを使用する。
-          // $posts = Remind::all();
-        $c_category_id = $category ->id;
-        $r_data = Remind::where('category_id' , $c_category_id)->get(['question']);
+        //Rコントローラ@creatで送信したデータの反映
+        $posts = Remind::where('category_id' , $request ->id)->get(['id' , 'category_id' , 'question' , 'answer']);
       
-        return view('reminder.index',['category_data' => $category , 'r_data' => $r_data]);
+        return view('reminder.index',['category' => $category, 'posts' => $posts]);
     }
     
     // public function edit (Request $request)

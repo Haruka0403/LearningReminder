@@ -15,14 +15,14 @@
       
       <div class="card-header">
        <div class="row">
-        <!--id(@add findメソッドの送信先）-->
-        <input type="hidden" name="id" value="{{$category_data->id}}">
+<!--id(@add findメソッドの送信先）-->
+        <input type="hidden" name="id" value="{{$category->id}}">
         <!--カテゴリー名-->
-        <h4 class="col-md-9 mb-0">{{$category_data->name}} </h4>
+        <h4 class="col-md-9 mb-0">{{$category->name}} </h4>
         
       <!--以下リマインダーモデルへ移動と消去のアクションを追加する-->
           <div class="mb-0" style="font-size: 80%;">
-            <a href="{{ url()->previous() }}" class="text-muted"><i class="fas fa-backward"></i>&ensp;一覧へ戻る</a>
+            <a href="{{ action('CategoryController@remind')  }}" class="text-muted"><i class="fas fa-backward"></i>&ensp;一覧へ戻る</a>
           </div>
 
        </div>
@@ -31,7 +31,7 @@
      <div class="card-body">
       <form action="{{ action('RemindController@create') }}" method="post" enctype="multipart/form-data">
       
-      <!--varidation-->
+<!--varidation-->
       @if (count($errors) > 0)
       <ul>
         @foreach($errors->all() as $e)
@@ -40,28 +40,28 @@
       </ul>
       @endif 
       
-      <!--カテゴリーid(hidden)-->
-        <input type="hidden" name="category_id" value="{{$category_data->id}}" >
+<!--カテゴリーid(hidden)-->
+        <input type="hidden" name="category_id" value="{{$category->id}}" >
         
-      <!--1.Question-->
+<!--1.Question-->
         <div class="form-group mb-0">
          <label for="question" class="mb-0 h3">Question</label>
          <textarea class="form-control" name="question" rows="5">
            {{ old('question') }}
          </textarea>
         </div>
-      <!--Question 画像-->
+<!--Question 画像-->
         <div class="form-group">
          <label for="image" class="mb-0">画像</label>
          <input type="file" class="form-controle-file h5" name="image">
         </div>
       
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
         
-      <!--2.Answer-->
+<!--2.Answer-->
         <div class="form-group">
          <label for="answer" class="mb-0 h3">Answer</label>
          <textarea class="form-control" name="answer" rows="5">
@@ -69,23 +69,23 @@
          </textarea>
         </div>
         
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
         
-      <!--3.Hint-->
+<!--3.Hint-->
         <div class="form-group">
          <label for="hint" class="mb-0 h3">ヒント</label>
          <input type="text" class="form-control" name="hint" value="{{ old('hint') }}">
         </div> 
         
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>  
         
-      <!--4.補足-->
+<!--4.補足-->
         <div class="form-group">
          <label for="comment" class="mb-0 h3">補足</label>
          <textarea class="form-control" name="comment" rows="5">
@@ -93,23 +93,23 @@
          </textarea>
         </div>
         
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
         
-      <!--5.リマインド開始日-->
+<!--5.リマインド開始日-->
         <div class="form-group">
          <label for="start" class="mb-0 h3">リマインド開始日</label>
          <input type="date" class="form-control" name="start_at" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>">
         </div>
         
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
         
-      <!--6.リマインド間隔-->
+<!--6.リマインド間隔-->
         <!--リマインド間隔が表示されたら、下の回数に5回分自動で計算され表示されるように設定する-->
         <h3 class="mt-3">リマインド間隔</h3>
           <table>
@@ -130,12 +130,12 @@
             </tbody>
           </table>
           
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
       
-      <!--7.リマインド回数-->
+<!--7.リマインド回数-->
       <h3 class="mt-3">リマインド回数</h3>
 
       <div id="demo-area" class="form-group">
@@ -145,7 +145,7 @@
             <span class="input-group-text">1回目</span>
           </div>
           
-          <!--name=remind_atを後で追加-->
+<!--name=remind_atを後で追加-->
           <input type="datetime-local" class="form-control" name="" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>">
 
           <div class="demo-minus input-group-append">
@@ -156,12 +156,12 @@
 
       <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       
-      <!--点線-->
+<!--点線-->
       <div class="col-md text-center">
         <hr class="dotline">
       </div>
          
-       <!--8.作成ボタン-->
+<!--8.作成ボタン-->
           <div class="form-row text-center mt-1">
             <div class="col-12">
               {{ csrf_field() }}

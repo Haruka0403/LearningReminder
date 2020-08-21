@@ -141,18 +141,25 @@
 @endsection
 
 @section('js')
-@if(isset($modal) && $modal != null && $modal != '')
+@php
+if (Session::has('modal')) {
+  $modal = session('modal');
+} else {
+  $modal = null;
+}
+@endphp
 <script>
   window.onload = function() {
-    var target = '{{$modal}}';
-    console.log('enter onload');
-    console.log(target);
-    if (target != null && target != '') {
-      var modal = document.getElementById(target);
-      $(modal).fadeIn();
-    }
+    @if(isset($modal))
+      var target = '{{$modal}}';
+      console.log('enter onload');
+      console.log(target);
+      if (target != null && target != '') {
+        var modal = document.getElementById(target);
+        $(modal).fadeIn();
+      }
+    @endif
     return false;
 }
 </script>
-@endif
 @endsection
