@@ -1,11 +1,18 @@
 'use strict';
 
-// フォーム追加
 var minCount = 1;
 var maxCount = 10;
 
 
 $(function(){
+  
+  // ここから
+  var demoarea = document.getElementsById("demo-area");
+      for(var i = 0; i < 6; i++){
+      ;
+      }
+  // ここまで
+  
 $('#demo-plus').on('click', function(){
   var inputCount = $('#demo-area .unit').length;
   if (inputCount < maxCount){

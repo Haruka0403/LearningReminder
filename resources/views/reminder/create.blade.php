@@ -10,20 +10,21 @@
    
   <h2 class="col-md-9">リマインダー　新規作成</h2>
   
-     <div class="col-md-8">
+    <div class="col-md-8">
       <div class="card">
       
       <div class="card-header">
        <div class="row">
-<!--id(@add findメソッドの送信先）-->
-<!--        <input type="hidden" name="id" value="{{$categories->id}}">-->
-        <!--カテゴリー名-->
-        <h4 class="col-md-9 mb-0">{{$categories->name}} </h4>
-        
-      <!--以下リマインダーモデルへ移動と消去のアクションを追加する-->
-          <div class="mb-0" style="font-size: 80%;">
-            <a href="{{ action('CategoryController@remind') . '?id=' . $categories->id  }}" class="text-muted"><i class="fas fa-backward"></i>&ensp;一覧へ戻る</a>
-          </div>
+
+<!--カテゴリー名-->
+      <h4 class="col-md-9 mb-0">{{$categories->name}} </h4>
+
+<!--一覧へ戻る-->
+      <div class="mb-0" style="font-size: 80%;">
+        <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">
+          <i class="fas fa-backward"></i>&ensp;一覧へ戻る
+        </a>
+      </div>
 
        </div>
      </div>
@@ -101,7 +102,7 @@
 <!--5.リマインド開始日-->
         <div class="form-group">
          <label for="start" class="mb-0 h3">リマインド開始日</label>
-         <input type="date" class="form-control" name="start_at" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>">
+         <input type="date" class="form-control" name="start_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
         </div>
         
 <!--点線-->
@@ -137,7 +138,7 @@
       
 <!--7.リマインド回数-->
       <h3 class="mt-3">リマインド回数</h3>
-
+      
       <div id="demo-area" class="form-group">
         <div class="unit input-group mb-2">
           
@@ -146,14 +147,14 @@
           </div>
           
 <!--name=remind_atを後で追加-->
-          <input type="datetime-local" class="form-control" name="" value="<?php echo date('Y-m-d');?>" min="<?php echo date('Y-m-d');?>">
+          <input type="datetime-local" class="form-control" name="" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
 
           <div class="demo-minus input-group-append">
             <span class="btn btn-danger">-</span>
           </div>
         </div>
       </div>
-
+      
       <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       
 <!--点線-->

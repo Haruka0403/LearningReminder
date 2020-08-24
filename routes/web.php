@@ -25,8 +25,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'CategoryController@top');
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind')->name('reminder');
-    Route::get('/edit','CategoryController@edit');
-    // Route::post('/edit', 'CategoryController@update');
+    // Route::get('/edit','CategoryController@edit');
+    Route::post('/edit', 'CategoryController@update');
     
     // Route::get('/','CategoryController@get');
     

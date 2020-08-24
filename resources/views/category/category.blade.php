@@ -46,7 +46,9 @@
        
  <!--モーダルボタン：リマインダーカテゴリ編集-->
        <td width=80>
-        <a href="ここにモデルからレコードをひっぱて来るアクション？(@edit)" class="js-modal-open" data-target="modal02"><i class="far fa-edit text-dark"></i></a>
+        <a href="" class="js-modal-open" data-target="modal02">
+          <i class="far fa-edit text-dark"></i>
+        </a>
        </td>
        
  <!--モーダルボタン：リマインダーカテゴリ消去-->
@@ -75,9 +77,9 @@
     <form name="addcategory" action="{{ action('CategoryController@create') }}" method="post" enctype="multipart/form-data">
     @if (count($errors) > 0)
      <ul>
-         @foreach($errors->all() as $e)
-             <li>{{ $e }}</li>
-         @endforeach
+       @foreach($errors->all() as $e)
+         <li>{{ $e }}</li>
+       @endforeach
      </ul>
     @endif
     
@@ -94,7 +96,7 @@
  </div>
   
   
- <!--モーダル編集ボタン-->
+ <!--モーダルカテゴリ名編集-->
  <div id="modal02" class="modal js-modal">
   
   <div class="modal__bg js-modal-close"></div>
@@ -102,12 +104,13 @@
   <div class="modal__content">
    <p>カテゴリー名編集</p>
    
-   <form action="ここに編集を更新する為のアクション？(@update)" method="post" enctype="multipart/form-data">
+   <form name="updatecategory" action="{{ action('CategoryController@update') }}" method="post" enctype="multipart/form-data">
+  <!--以下を入力すると、新規作成でエラーがあった場合、関係ない変種のモーダルにもエラー文が反映されてしまう-->
     <!--@if (count($errors) > 0)-->
     <!-- <ul>-->
-    <!--     @foreach($errors->all() as $e)-->
-    <!--         <li>{{ $e }}</li>-->
-    <!--     @endforeach-->
+    <!--   @foreach($errors->all() as $e)-->
+    <!--     <li>{{ $e }}</li>-->
+    <!--   @endforeach-->
     <!-- </ul>-->
     <!--@endif-->
     
@@ -116,7 +119,7 @@
      </div>
     
     {{ csrf_field() }}
-    <button type="submit" class="js-modal-close btn-border">変更</bottun>
+    <button type="submit" class="btn-border">変更</bottun>
    </form>
   </div>
   

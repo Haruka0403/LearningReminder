@@ -6,7 +6,7 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-   
+ 
   <h2 class="col-md-7">リマインダー</h2>
   
 <!--リマインダー新規作成ボタン-->
@@ -15,34 +15,28 @@
   </div>
   
 <!--リマインダー中身一覧-->
-   <div class="col-md-6">
-     
-<!--category_id(hidden)新規作成画面へのカテゴリー名継承用(R@add)-->
-    <input type="hidden" name="id" value="{{$categories->id}}">
-    
+  <div class="col-md-6">
     <div class="card">
 <!--カテゴリータイトル-->
       <div class="card-header">
         <h4 class="mb-0">{{$categories->name}}</h4>
       </div>
- 
 
-@if (0 == count($categories->reminds))
-<div class="card-body">
-  リマインダーが登録されていません
-</div>
+      @if (0 == count($categories->reminds))
+      <div class="card-body">
+        リマインダーが登録されていません
+      </div>
 
-
-@else
+      @else
 <!--リマインダー中身-->
-@foreach($reminds as $remind)
-   
-<!--id:新規作成より継承したデータ表示用(R@creat → C@remind)-->
-    <input type="hidden" name="id" value="{{$remind->id}}">
+      @foreach($reminds as $remind)
+       
+<!--リマインドid:新規作成より継承したデータ表示用(R@creat → C@remind)-->
+      <input type="hidden" name="id" value="{{$remind->id}}">
 <!--category_id-->
-    <input type="hidden" name="category_id" value="{{$remind->category_id}}">
+      <input type="hidden" name="category_id" value="{{$remind->category_id}}">
     
-    <div class="card-body pb-0">
+      <div class="card-body pb-0">
 <!--Question-->
      <h5>
       <span style="border-bottom: solid 5px powderblue;">Question</span>
@@ -76,11 +70,11 @@
     </div>
 
 <!--線-->
-    <hr class="mt-0 mb-0">
-@endforeach
-@endif
+      <hr class="mt-0 mb-0">
+      @endforeach
+      @endif
 
-   </div>
+    </div>
   </div>
     
   </div>
