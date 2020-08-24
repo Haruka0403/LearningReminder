@@ -30,16 +30,16 @@
  
  <!--リマインダー関連-->
    　 <tbody>
-   　  @foreach($posts as $category)
+   　  @foreach($items as $item)
  <!--id(hidden)@createから送信されたカテゴリー名をredirect→@topを通し、viewに表示するためにidが必要-->
-  　  <input type="hidden" name="id" value="{{$category->id}}">
+  　  <input type="hidden" name="id" value="{{$item->id}}">
    　  
  <!--リマインダーカテゴリ一覧--> 
    　  <tr>
-    　  <td width=500>{{ \Str::limit($category->name, 50)}}</td>
+    　  <td width=500>{{ \Str::limit($item->name, 50)}}</td>
     　   <!--中身をカウントして表示するコードを後で入れる-->
        <td width=200>10&ensp;
-        <a href="{{ action('CategoryController@remind',['id' => $category->id ,'name' => $category->name]) }}">
+        <a href="{{ action('CategoryController@remind',['id' => $item->id ,'name' => $item->name]) }}">
          <i class="fas fa-angle-double-right text-dark"></i>
         </a>
        </td>

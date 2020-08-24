@@ -11,46 +11,49 @@
   
 <!--リマインダー新規作成ボタン-->
   <div class="col-md-2">
-    <a href="{{ action('RemindController@add',['id' => $category->id ,'name' => $category->name]) }}" class="btn-border">+リマインダー</a>
+    <a href="{{ action('RemindController@add',['id' => $categories->id ,'name' => $categories->name]) }}" class="btn-border">+リマインダー</a>
   </div>
   
 <!--リマインダー中身一覧-->
    <div class="col-md-6">
      
 <!--category_id(hidden)新規作成画面へのカテゴリー名継承用(R@add)-->
-    <input type="hidden" name="id" value="{{$category->id}}">
+    <input type="hidden" name="id" value="{{$categories->id}}">
     
     <div class="card">
 <!--カテゴリータイトル-->
       <div class="card-header">
-        <h4 class="mb-0">{{$category->name}}</h4>
+        <h4 class="mb-0">{{$categories->name}}</h4>
       </div>
+ 
 
+@if (0 == count($categories->reminds))
+<div class="card-body">
+  リマインダーが登録されていません
+</div>
+
+
+@else
 <!--リマインダー中身-->
-
-  {{--@if (empty ($posts))--}}
-  <!--リマインダーが登録されていません-->
-  {{--@elese--}}
-  
-@foreach($posts as $reminder)
+@foreach($reminds as $remind)
    
 <!--id:新規作成より継承したデータ表示用(R@creat → C@remind)-->
-    <input type="hidden" name="id" value="{{$reminder -> id}}">
+    <input type="hidden" name="id" value="{{$remind->id}}">
 <!--category_id-->
-    <input type="hidden" name="category_id" value="{{$reminder -> category_id}}">
+    <input type="hidden" name="category_id" value="{{$remind->category_id}}">
     
     <div class="card-body pb-0">
 <!--Question-->
      <h5>
       <span style="border-bottom: solid 5px powderblue;">Question</span>
      </h5>
-     <p>{{\Str::limit($reminder -> question), 100}}</p>
+     <p>{{\Str::limit ($remind->question), 100}}</p>
 
 <!--Answer-->
      <h5>
       <span style="border-bottom: solid 5px powderblue;">Answer</span>
      </h5>
-     <p class="mb-0">{{\Str::limit($reminder -> answer), 100}}</p>
+     <p class="mb-0">{{\Str::limit ($remind->answer), 100}}</p>
     </div>
     
 <!--詳細画面移動ボタン-->
@@ -74,15 +77,13 @@
 
 <!--線-->
     <hr class="mt-0 mb-0">
-   @endforeach 
-
-{{--@endif--}}
+@endforeach
+@endif
 
    </div>
   </div>
     
   </div>
 </div>
-
 
 @endsection

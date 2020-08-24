@@ -16,4 +16,12 @@ class Remind extends Model
         'comment'=> 'required',
         'start_at'=> 'required',
     );
+    
+    // public function category(){
+    //   return $this ->belongsTo('App\Category');
+    // } 
+    
+    // public function getIdData(){
+    //     return $this->id;
+    // }
 }

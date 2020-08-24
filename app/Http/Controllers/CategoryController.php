@@ -20,8 +20,8 @@ class CategoryController extends Controller
 {
     public function top (Request $request)
     {
-        $posts = Category::all();
-        return view('category.category',['posts' => $posts]);
+        $items = Category::all();
+        return view('category.category',['items' => $items]);
     }
   
     public function create (Request $request)
@@ -53,18 +53,38 @@ class CategoryController extends Controller
     
     public function remind (Request $request)
     {
-        // カテゴリータイトルの継承
-        $category = Category::find($request->id);
-          // 以下を入力すると、そっちが反映されるのはなぜか..
-          //     if (empty($cotegory)) {
-          //     abort(404);    
-          //   }
+        
+        // if ( $request->session()->has('category_id')){
+        //   $category_id = $request->session()->get('category_id');
+        //   $categories = Category::where('id' , $category_id)->first();
+        //   $reminds = $categories->reminds;
+        // }
+        // // else{
+        // elseif(Category::has('reminds')){
+          $categories = Category::find($request->id);
+          $reminds = $categories->reminds;
+          // }
+        // else(Category::doesntHave('reminds')){
+        //   $noItems = Category::doesntHave('reminds')->get();
+        // }
           
-        //Rコントローラ@creatで送信したデータの反映
-        $posts = Remind::where('category_id' , $request ->id)->get(['id' , 'category_id' , 'question' , 'answer']);
-      
-        return view('reminder.index',['category' => $category, 'posts' => $posts]);
+        return view('reminder.index',['categories' => $categories , 'reminds' => $reminds]);
+        // return view('reminder.index',['categories' => $categories , 'reminds' => $reminds , 'noItems' => $noItems]);
     }
+    
+     
+    // public function remind2 (Request $request)
+    // {
+    //     // カテゴリータイトルの継承
+    //     $category_id = $request->old('category_id');
+    //     $categories = Category::get($category_id);
+    //     $reminds = $categories->reminds; 
+          
+    //     //Rコントローラ@creatで送信したデータの反映
+    //     // $reminds = Remind::where('category_id' , $request ->id || $category_id)->get(['id' , 'category_id' , 'question' , 'answer']);
+      
+    //     return view('reminder.index',['categories' => $categories , 'reminds' => $reminds]);
+    // }
     
     // public function edit (Request $request)
     // {

@@ -16,13 +16,13 @@
       <div class="card-header">
        <div class="row">
 <!--id(@add findメソッドの送信先）-->
-        <input type="hidden" name="id" value="{{$category->id}}">
+<!--        <input type="hidden" name="id" value="{{$categories->id}}">-->
         <!--カテゴリー名-->
-        <h4 class="col-md-9 mb-0">{{$category->name}} </h4>
+        <h4 class="col-md-9 mb-0">{{$categories->name}} </h4>
         
       <!--以下リマインダーモデルへ移動と消去のアクションを追加する-->
           <div class="mb-0" style="font-size: 80%;">
-            <a href="{{ action('CategoryController@remind')  }}" class="text-muted"><i class="fas fa-backward"></i>&ensp;一覧へ戻る</a>
+            <a href="{{ action('CategoryController@remind') . '?id=' . $categories->id  }}" class="text-muted"><i class="fas fa-backward"></i>&ensp;一覧へ戻る</a>
           </div>
 
        </div>
@@ -41,7 +41,7 @@
       @endif 
       
 <!--カテゴリーid(hidden)-->
-        <input type="hidden" name="category_id" value="{{$category->id}}" >
+        <input type="hidden" name="category_id" value="{{$categories->id}}" >
         
 <!--1.Question-->
         <div class="form-group mb-0">
