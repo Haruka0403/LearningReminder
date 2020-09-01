@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// api練習
+//URLが/apiから始まる
+//csrf保護無効=外部からアクセスできる
+Route::group(['middleware' => ['api']], function(){
+  Route::get('category', 'Api\CategoryController@index');
+  Route::any('create', 'Api\CategoryController@create');
+  Route::any('category_edit', 'Api\CategoryController@edit');
+});

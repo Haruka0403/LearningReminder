@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind')->name('reminder');
     // Route::get('/edit','CategoryController@edit');
-    // Route::post('/', 'CategoryController@update');
+    Route::post('/edit', 'CategoryController@update');
     
     // Route::get('/','CategoryController@get');
     
@@ -37,8 +37,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/create','RemindController@add');
     Route::post('/create','RemindController@create');
 
-
-// アーカイブコントローラ
-    Route::get('/archive/detail','ArchiveController@detail');
-    Route::get('/archive/detail/edit','ArchiveController@edit');
 });
+
+// ajax練習
+Route::get('/apiview', 'CategoryController@apiview');
+Route::get('/ajax', 'CategoryController@ajax');

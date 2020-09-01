@@ -49,13 +49,8 @@ class RemindController extends Controller
       $remind->fill($form);
       $remind->save();
       
-    //直接viewへ繋げるパターン 
-      // $categories= Category::where('id' , $request ->category_id)->first();
-      // $reminds=Remind::where('category_id' , $categories->id)->get();
-      // return view('reminder.index')->with(['reminds' => $reminds, 'categories'=> $categories]);
+      // $function = new Function;
       
-    // sessionを使用するパターン
-    //  $request->session()->put('category_id', $request->category_id);
    
     return redirect(route('reminder', ['id' => $request->category_id]));
 }

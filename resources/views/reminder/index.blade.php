@@ -6,13 +6,16 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
- 
-  <h2 class="col-md-7">リマインダー</h2>
-  
+    
+
+  <h2 class="col-md-6 mb-3">リマインダー</h2>
+
+
 <!--リマインダー新規作成ボタン-->
-  <div class="col-md-2">
+  <div class="col-md-2 mb-3">
     <a href="{{ action('RemindController@add',['id' => $categories->id ,'name' => $categories->name]) }}" class="btn-border">+リマインダー</a>
   </div>
+
   
 <!--リマインダー中身一覧-->
   <div class="col-md-6">
@@ -62,7 +65,7 @@
     
     <div class="row justify-content-center m-2">
      <div class="col-md-4 text-center">
-      移動&ensp;<i class="fas fa-file-export"></i>
+      編集&ensp;<i class="far fa-edit text-dark"></i>
      </div>
      <div class="col-md-4 text-center">
        消去&ensp;<i class="far fa-trash-alt"></i>

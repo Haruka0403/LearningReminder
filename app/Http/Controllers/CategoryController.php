@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 use Validator;
 
-
-
 class CategoryController extends Controller
 {
     public function top (Request $request)
@@ -57,27 +55,27 @@ class CategoryController extends Controller
     //     return view('category.category',['category_data' => $category]);
     // }
     
-    //   public function update (Request $request)
-    // {
-    //     // $validator = Validator::make($request->all(), Category::$rules);
+      public function update (Request $request)
+    {
+        $validator = Validator::make($request->all(), Category::$rules);
         
-        // if ($validator->fails()) {
-        //   return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal02');
-        // }
+        if ($validator->fails()) {
+          return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal02');
+        }
         
-    //     //Modelからデータを取得
-    //     $category = Category::find($request->id);
+        //Modelからデータを取得
+        $category = Category::find($request->id);
         
-    //     // 送信されてきたフォームデータを格納
-    //     $category_name = $request->all();
+        // 送信されてきたフォームデータを格納
+        $category_name = $request->all();
         
-    //     unset($category_name['_token']);
+        unset($category_name['_token']);
 
-    //     // 該当するデータを上書きして保存する
-    //     $category->fill($category_name)->save();
+        // 該当するデータを上書きして保存する
+        $category->fill($category_name)->save();
 
-    //     return redirect('/');
-    // }
+        return redirect('/');
+    }
     
     public function remind (Request $request)
     {
@@ -87,28 +85,16 @@ class CategoryController extends Controller
         return view('reminder.index',['categories' => $categories , 'reminds' => $reminds]);
     }
     
-    
-   
-    
-   
-    
-     public function get (Request $request)
-    {
-        $category = Category::find($request->id);
-    
-        return view('category.category',['category_delete' => $category]);
-    }
-    
-    
+ 
     public function search ()
     {
         return view('category.search');
     }
-    
-  public function archive ()
+ 
+ 
+//  ajax練習
+    public function apiview()
     {
-        return view('archive.index');
-    }
-    
-   
+        return view('category.apiview');
+    }     
 }

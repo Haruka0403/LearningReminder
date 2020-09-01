@@ -51,11 +51,6 @@
            {{ old('question') }}
          </textarea>
         </div>
-<!--Question 画像-->
-        <div class="form-group">
-         <label for="image" class="mb-0">画像</label>
-         <input type="file" class="form-controle-file h5" name="image">
-        </div>
       
 <!--点線-->
       <div class="col-md text-center">
@@ -110,33 +105,7 @@
         <hr class="dotline">
       </div>
         
-<!--6.リマインド間隔-->
-        <!--リマインド間隔が表示されたら、下の回数に5回分自動で計算され表示されるように設定する-->
-        <h3 class="mt-3">リマインド間隔</h3>
-          <table>
-            <tbody>
-              
-            <td width=100>
-              <input type="number" class="form-control" name="" style="width:100px" value="1" min="1" step="1">
-            </td>
-              
-            <td width=100>
-              <p class="mb-0">日おき</p>
-            </td>
-
-            <td width=300>
-              <a href="" class="btn btn-primary btn-sm">リマインドを作る</a>
-            </td>
-            
-            </tbody>
-          </table>
-          
-<!--点線-->
-      <div class="col-md text-center">
-        <hr class="dotline">
-      </div>
-      
-<!--7.リマインド回数-->
+<!--6.リマインド回数-->
       <h3 class="mt-3">リマインド回数</h3>
       
       <div id="demo-area" class="form-group">
@@ -145,9 +114,8 @@
           <div class="input-group-prepend">
             <span class="input-group-text">1回目</span>
           </div>
-          
-<!--name=remind_atを後で追加-->
-          <input type="datetime-local" class="form-control" name="" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
+        
+          <input type="datetime-local" class="form-control" name="remind_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
 
           <div class="demo-minus input-group-append">
             <span class="btn btn-danger">-</span>
@@ -162,7 +130,7 @@
         <hr class="dotline">
       </div>
          
-<!--8.作成ボタン-->
+<!--7.作成ボタン-->
           <div class="form-row text-center mt-1">
             <div class="col-12">
               {{ csrf_field() }}
