@@ -25,20 +25,22 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'CategoryController@top');
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind')->name('reminder');
-    // Route::get('/edit','CategoryController@edit');
-    Route::post('/edit', 'CategoryController@update');
-    
-    // Route::get('/','CategoryController@get');
+    Route::post('/update', 'CategoryController@update');
+    Route::get('/delete', 'CategoryController@delete');
     
     Route::get('/search','CategoryController@search');
     Route::get('/archive','CategoryController@archive');
     
 // リマインドコントローラ
-    Route::get('/create','RemindController@add');
-    Route::post('/create','RemindController@create');
+    Route::get('reminder/create','RemindController@add');
+    Route::post('reminder/create','RemindController@create');
+    Route::get('/reminder/edit','RemindController@edit');
+    Route::post('/reminder/update','RemindController@update');
+    Route::get('/reminder/delete','RemindController@delete');
+    Route::get('/reminder/detail','RemindController@detail');
 
 });
 
 // ajax練習
-Route::get('/apiview', 'CategoryController@apiview');
-Route::get('/ajax', 'CategoryController@ajax');
+// Route::get('/apiview', 'CategoryController@apiview');
+// Route::get('/ajax', 'CategoryController@ajax');

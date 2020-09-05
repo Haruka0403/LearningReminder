@@ -17,9 +17,9 @@ class Remind extends Model
         'start_at'=> 'required',
     );
     
-    // public function category(){
-    //   return $this ->belongsTo('App\Category');
-    // } 
+    public function category(){
+      return $this ->belongsTo('App\Category');
+    } 
     
     // public function getIdData(){
     //     return $this->id;

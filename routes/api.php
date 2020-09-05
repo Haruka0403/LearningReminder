@@ -23,5 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['api']], function(){
   Route::get('category', 'Api\CategoryController@index');
   Route::any('create', 'Api\CategoryController@create');
-  Route::any('category_edit', 'Api\CategoryController@edit');
 });

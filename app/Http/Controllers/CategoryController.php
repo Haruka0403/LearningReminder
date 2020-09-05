@@ -24,11 +24,14 @@ class CategoryController extends Controller
   
     public function create (Request $request)
     {
+        $request->session()->flash('errors', $errors);
+        
         $validator = Validator::make($request->all(), Category::$rules);
         
-      if ($validator->fails()) {
+        if ($validator->fails()) {
           return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal01');
         }
+        
         
         $category = new Category;
         $form = $request->all();
@@ -45,18 +48,10 @@ class CategoryController extends Controller
       
     }
     
-    // public function edit (Request $request)
-    // {
-    //     $category = Category::find($request->id);
-    //     // if (empty($news)) {
-    //     // abort(404);    
-    //     // }
-    //     //retunの場所をどこにするべきか分からない
-    //     return view('category.category',['category_data' => $category]);
-    // }
-    
       public function update (Request $request)
     {
+        $request->session()->flash('errors', $errors);
+        
         $validator = Validator::make($request->all(), Category::$rules);
         
         if ($validator->fails()) {
@@ -77,6 +72,16 @@ class CategoryController extends Controller
         return redirect('/');
     }
     
+    
+     public function delete (Request $request)
+    {
+        $categories = Category::find($request->id);
+        $categories->delete();
+ 
+        return redirect('/');
+    }
+    
+    
     public function remind (Request $request)
     {
         $categories = Category::find($request->id);
@@ -92,9 +97,4 @@ class CategoryController extends Controller
     }
  
  
-//  ajax練習
-    public function apiview()
-    {
-        return view('category.apiview');
-    }     
 }

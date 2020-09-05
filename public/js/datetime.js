@@ -124,7 +124,8 @@ $(function () {
     var inputCount = $('#demo-area .unit').length;
 
     if (inputCount > minCount) {
-      $(this).parents('.unit').remove();
+      $(this).parents('.unit').remove(); //リマインド回数の表示 
+
       var elements = document.getElementsByClassName("input-group-text");
 
       for (var i = 0; i < elements.length; i++) {

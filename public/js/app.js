@@ -49725,7 +49725,41 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/ec2-user/environment/reminder/resources/js/ajax_practice.js: Unexpected token (117:2)\n\n\u001b[0m \u001b[90m 115 | \u001b[39m     max \u001b[33m=\u001b[39m \u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mfloor(max)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 116 | \u001b[39m     \u001b[36mreturn\u001b[39m \u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mfloor(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m*\u001b[39m (max \u001b[33m-\u001b[39m min \u001b[33m+\u001b[39m \u001b[35m1\u001b[39m)) \u001b[33m+\u001b[39m min\u001b[33m;\u001b[39m \u001b[90m//The maximum is inclusive and the minimum is inclusive\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 117 | \u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at Parser._raise (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:757:17)\n    at Parser.raiseWithData (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:750:17)\n    at Parser.raise (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:744:17)\n    at Parser.unexpected (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:8834:16)\n    at Parser.parseExprAtom (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10176:20)\n    at Parser.parseExprSubscripts (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9688:23)\n    at Parser.parseMaybeUnary (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9668:21)\n    at Parser.parseExprOps (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9538:23)\n    at Parser.parseMaybeConditional (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9511:23)\n    at Parser.parseMaybeAssign (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9466:21)\n    at Parser.parseExpression (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9418:23)\n    at Parser.parseStatementContent (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11339:23)\n    at Parser.parseStatement (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11210:17)\n    at Parser.parseBlockOrModuleBlockBody (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11785:25)\n    at Parser.parseBlockBody (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11771:10)\n    at Parser.parseBlock (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11755:10)\n    at Parser.parseFunctionBody (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10758:24)\n    at Parser.parseFunctionBodyAndFinish (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10741:10)\n    at withTopicForbiddingContext (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11925:12)\n    at Parser.withTopicForbiddingContext (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11085:14)\n    at Parser.parseFunction (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:11924:10)\n    at Parser.parseFunctionExpression (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10217:17)\n    at Parser.parseExprAtom (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10096:21)\n    at Parser.parseExprSubscripts (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9688:23)\n    at Parser.parseMaybeUnary (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9668:21)\n    at Parser.parseExprOps (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9538:23)\n    at Parser.parseMaybeConditional (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9511:23)\n    at Parser.parseMaybeAssign (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9466:21)\n    at Parser.parseExprListItem (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:10846:18)\n    at Parser.parseCallExpressionArguments (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9885:22)\n    at Parser.parseSubscript (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9785:31)\n    at Parser.parseSubscripts (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9711:19)\n    at Parser.parseExprSubscripts (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9694:17)\n    at Parser.parseMaybeUnary (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9668:21)\n    at Parser.parseExprOps (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9538:23)\n    at Parser.parseMaybeConditional (/home/ec2-user/environment/reminder/node_modules/@babel/parser/lib/index.js:9511:23)");
+$(function () {
+  //ボタンを押すと色が変わる
+  $('#change_color').click('on', function () {
+    var colors = ['red', 'blue', 'yellow', 'white'];
+    $('body').css("background-color", colors[getRandomIntInclusive(0, colors.length - 1)]);
+  }); //HTMLを追加することもできる
+
+  $('#add_hello').click('on', function () {
+    var msg = '<p>hello</p>';
+    $('.target_hello').append(msg);
+  }); //通信して取得したデータを元に、HTMLを追加することもできる
+
+  $('#get_news').click('on', function () {
+    $.ajax({
+      url: 'api/category',
+      type: 'GET',
+      data: {}
+    }).done(function (response) {
+      console.log(response);
+      var row;
+
+      for (var i = 0; i < Object.keys(response).length; i++) {
+        row = row + "<tr>";
+        row = row + "<td>" + response[i].id + "</td>";
+        row = row + "<td>" + response[i].user_id + "</td>";
+        row = row + "<td>" + response[i].name + "</td>";
+        row = row + "</tr>";
+      }
+
+      $('.news').append(row);
+    }).fail(function () {
+      alert('エラー');
+    });
+  });
+});
 
 /***/ }),
 

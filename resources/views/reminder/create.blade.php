@@ -53,7 +53,7 @@
         </div>
       
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
         
@@ -66,7 +66,7 @@
         </div>
         
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
         
@@ -77,7 +77,7 @@
         </div> 
         
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-mp-0 text-center">
         <hr class="dotline">
       </div>  
         
@@ -90,7 +90,7 @@
         </div>
         
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
         
@@ -101,12 +101,12 @@
         </div>
         
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
         
 <!--6.リマインド回数-->
-      <h3 class="mt-3">リマインド回数</h3>
+      <h3 class="mt-3">リマインド日程</h3>
       
       <div id="demo-area" class="form-group">
         <div class="unit input-group mb-2">
@@ -115,18 +115,19 @@
             <span class="input-group-text">1回目</span>
           </div>
         
-          <input type="datetime-local" class="form-control" name="remind_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
+          <input type="datetime-local" class="form-control" name="remind_at[]" value="" min="">
 
           <div class="demo-minus input-group-append">
             <span class="btn btn-danger">-</span>
           </div>
+          
         </div>
       </div>
       
       <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       
 <!--点線-->
-      <div class="col-md text-center">
+      <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
          

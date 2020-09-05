@@ -1,6 +1,6 @@
 @extends('layouts.common')
 
-@section('title', 'リマインダー詳細')
+@section('title', 'リマインダー編集')
 
 @section('content')
 <div id="app">
@@ -8,7 +8,7 @@
 <div class="container">
   <div class="row justify-content-center">
    
-  <h2 class="col-md-9">リマインダー　詳細</h2>
+  <h2 class="col-md-9">リマインダー　編集</h2>
   
     <div class="col-md-8">
       <div class="card">
@@ -30,17 +30,29 @@
      </div>
  
      <div class="card-body">
-
+      <form action="{{ action('RemindController@update') }}" method="post" enctype="multipart/form-data">
+      
+<!--varidation-->
+      @if (count($errors) > 0)
+      <ul>
+        @foreach($errors->all() as $e)
+          <li>{{ $e }}</li>
+        @endforeach
+      </ul>
+      @endif 
+      
 <!--id(hidden)-->
       <input type="hidden" name="id" value="{{ $categories->id }}">
       <input type="hidden" name="id" value="{{ $reminds->id }}">
       <input type="hidden" name="category_id" value="{{$reminds->category_id}}">
         
 <!--1.Question-->
-       <h5>
-        <span style="border-bottom: solid 5px powderblue;">Question</span>
-       </h5>
-      <p>{{ $reminds->question}}</p>
+        <div class="form-group mb-0">
+         <label for="question" class="mb-0 h3">Question</label>
+         <textarea class="form-control" name="question" rows="5">
+           {{ $reminds->question}}
+         </textarea>
+        </div>
       
 <!--点線-->
       <div class="col-md p-0 text-center">
@@ -48,10 +60,12 @@
       </div>
         
 <!--2.Answer-->
-      <h5>
-        <span style="border-bottom: solid 5px powderblue;">Answer</span>
-      </h5>
-      <p>{{ $reminds->answer}}</p>
+        <div class="form-group">
+         <label for="answer" class="mb-0 h3">Answer</label>
+         <textarea class="form-control" name="answer" rows="5">
+           {{ $reminds->answer}}
+         </textarea>
+        </div>
         
 <!--点線-->
       <div class="col-md p-0 text-center">
@@ -59,10 +73,10 @@
       </div>
         
 <!--3.Hint-->
-      <h5>
-        <span style="border-bottom: solid 5px powderblue;">ヒント</span>
-      </h5>
-      <p>{{ $reminds->hint}}</p>
+        <div class="form-group">
+         <label for="hint" class="mb-0 h3">ヒント</label>
+         <input type="text" class="form-control" name="hint" value="{{ $reminds->hint }}">
+        </div> 
         
 <!--点線-->
       <div class="col-md p-0 text-center">
@@ -70,21 +84,23 @@
       </div>  
         
 <!--4.補足-->
-      <h5>
-        <span style="border-bottom: solid 5px powderblue;">補足</span>
-      </h5>
-      <p>{{ $reminds->comment}}</p>
-      
+        <div class="form-group">
+         <label for="comment" class="mb-0 h3">補足</label>
+         <textarea class="form-control" name="comment" rows="5">
+           {{ $reminds->comment}}
+         </textarea>
+        </div>
+        
 <!--点線-->
       <div class="col-md p-0 text-center">
         <hr class="dotline">
       </div>
         
 <!--5.リマインド開始日-->
-      <h5>
-        <span style="border-bottom: solid 5px powderblue;">リマインド開始日</span>
-      </h5>
-      <p>{{ $reminds->start_at}}</p>
+        <div class="form-group">
+         <label for="start" class="mb-0 h3">リマインド開始日</label>
+         <input type="date" class="form-control" name="start_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
+        </div>
         
 <!--点線-->
       <div class="col-md p-0 text-center">
@@ -92,10 +108,7 @@
       </div>
         
 <!--6.リマインド回数-->
-      <!--<h5 class="mt-3">リマインド回数</h5>-->
-      <h5>
-        <span style="border-bottom: solid 5px powderblue;">リマインド回数</span>
-      </h5>
+      <h3 class="mt-3">リマインド回数</h3>
       
       <div id="demo-area" class="form-group">
         <div class="unit input-group mb-2">
@@ -115,6 +128,20 @@
       
       <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       
+<!--点線-->
+      <div class="col-md p-0 text-center">
+        <hr class="dotline">
+      </div>
+         
+<!--7.作成ボタン-->
+          <div class="form-row text-center mt-1">
+            <div class="col-12">
+              {{ csrf_field() }}
+              <button type="submit" class="btn-border2">更 新</button>
+            </div>
+          </div>
+         
+         </form>
         </div>
  
      </div>
