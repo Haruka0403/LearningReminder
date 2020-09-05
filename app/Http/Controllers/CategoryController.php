@@ -24,7 +24,7 @@ class CategoryController extends Controller
   
     public function create (Request $request)
     {
-        $request->session()->flash('errors', $errors);
+        // $request->session()->flash('errors', $errors);
         
         $validator = Validator::make($request->all(), Category::$rules);
         
@@ -50,7 +50,7 @@ class CategoryController extends Controller
     
       public function update (Request $request)
     {
-        $request->session()->flash('errors', $errors);
+        // $request->session()->flash('errors', $errors);
         
         $validator = Validator::make($request->all(), Category::$rules);
         

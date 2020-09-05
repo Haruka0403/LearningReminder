@@ -36,46 +36,13 @@
        </td>
        
  <!--モーダルボタン：カテゴリ編集-->
+ <!--<div class="modal" id="modal02{{$item->id}}" ←カテゴリ新規作成と同じモーダルを使用する場合これを利用する-->
         <td width=80>
-          <a href='' type="submit" data-toggle="modal" data-target="#exampleModalCentered{{$item->id}}">
+          <a href="" class="js-modal-open" data-target="modal02{{$item->id}}">
             <i class="far fa-edit text-dark"></i>
-          </a>
+          </a>          
         </td>
-       
-        <!-- Modal -->
-        <!--<div class="modal" id="modal02{{$item->id}}" ←カテゴリ新規作成と同じモーダルを使用する場合これを利用する-->
-        <div class="modal" id="exampleModalCentered{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenteredLabel">カテゴリー名編集</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              <!--form-->
-              <form id="exampleModalCentered{{$item->id}}" action="{{ action('CategoryController@update') }}" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                  <input class="form-control" type="text" name="name" value="{{$item->name}}">
-                </div>
-                
-                <input type='hidden' name='id' value='{{$item->id}}'>
-                <input type='hidden' name='modal' value='exampleModalCentered{{$item->id}}'>
-                {{ csrf_field() }}
-                
-                <!--button-->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                  <button type="submit" form="exampleModalCentered{{$item->id}}" class="btn btn-primary">送信</button>
-                </div>
-              </form>
-              
-            </div>
-          </div>
-        </div>
-       
-       
+      
  <!--モーダルボタン：カテゴリ消去-->
     <!-- Button trigger modal -->
     <td width=80>
@@ -144,6 +111,37 @@
   </div>
   
  </div>
+
+<!--モーダル編集-->
+ @foreach($items as $item)
+ <div id="modal02{{$item->id}}" class="modal js-modal">
+  
+  <div class="modal__bg js-modal-close"></div>
+  
+  <div class="modal__content">
+   <p>カテゴリー名編集</p>
+   
+    <form name="addcategory" action="{{action('CategoryController@update')}}" method="post" enctype="multipart/form-data">
+    @if (count($errors) > 0)
+     <ul>
+       @foreach($errors->all() as $e)
+         <li>{{ $e }}</li>
+       @endforeach
+     </ul>
+    @endif
+    
+    <div class="form-group">
+     <input type="text" class="form-control" name="name" value="{{$item->name}}">
+    </div>
+   
+    <input type="hidden" name="id" value="{{$item->id}}">
+    {{ csrf_field() }}
+    <button type="submit" class="btn-border">変更</button>
+   </form>
+  </div>
+  
+ </div>
+@endforeach
 
 </div>
 @endsection

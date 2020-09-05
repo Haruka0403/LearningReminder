@@ -47,10 +47,10 @@ class RemindController extends Controller
       $remind->fill($form);
       $remind->save();
       
-//   ファンクションテーブル 
-      foreach($request->remind_at as $remind_at){
+//   ファンクションテーブル 以下のforeach内で回す
+      foreach($request->remind_at as $remind_at){　}
 // 質問1、以下のエラー(テーブル名がfunctionだから？名前変更したほうがいいですか？)　A.名前を変更する
-      $function = new Function;
+      // $function = new Function;
       
 // 質問2、リマインドテーブルとファンクションテーブルはなぜ分けたのでしょうか？ A.レコードが何個になるかわからないものを保存する為
 
