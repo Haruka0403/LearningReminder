@@ -96,28 +96,19 @@ class CategoryController extends Controller
     
     public function ajax (Request $request)
     {
-    // できない→できた！！(タイムゾーンが日本のなっていない)
-        $today = date("Y-m-d\TH:i");
-        // dd($today);
-        // echo gettype($today);
-        
-        // if (Schedule::where('remind_at' , $today)){
-          $schedule = Schedule::where('remind_at' , $today)->first();
-          $remind = Remind::where('id' , $schedule->remind_id)->get();
-        //    dd($schedule);
-        // }
+    // できない→できた！！(タイムゾーンが日本のなっていない→app.phpで変更済)
+      // $today = date("Y-m-d\TH:i");
+      // $schedule = Schedule::where('remind_at' , $today)->first();
+      // $remind = Remind::where('id' , $schedule->remind_id)->get();
         
     // できない→できた！！（getは複数形なので、108行目はfirst)
-        //   $schedule = Schedule::where('remind_at' , '2020-09-13T14:00')->first();
-        //   $remind = Remind::where('id' , $schedule->remind_id)->get();
-        //   dd($remind);
-
+      $schedule = Schedule::where('remind_at' , '2020-09-13T14:00')->first();
+      $remind = Remind::where('id' , $schedule->remind_id)->get();
 
     //  できる
         // $remind = Remind::where('id' , 5)->get();
         // dd($remind);
-        
-        // return $schedule;
+
         return $remind;
     }
     

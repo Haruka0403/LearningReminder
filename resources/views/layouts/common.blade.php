@@ -44,11 +44,23 @@ $.ajax({
 
  .done(function(response) {
    console.log(response);
-
+   
   for(var i=0; i<Object.keys(response).length; i++){
+    const answer = response[i].answer;
+    let loc = 0;
+    
     document.getElementById("remind_question").innerText = '問題：' + response[i].question;
+    document.getElementById("remind_answer").textContent =  answer;
+ 
+
+    document.addEventListener('keydown', e => {
+      if(e.key !== answer[loc]){
+      return;
+    }
+      loc++;
+      remind_answer.textContent ='_ '.repeat(loc) + answer.substring(loc);
+  }); 
   }
-  
      
    // モーダル
     var js_remind_modal = document.getElementById('js_remind_modal');
@@ -56,11 +68,7 @@ $.ajax({
     $(js_remind_modal).fadeIn();
     return false;
     
-    $('.js-remind-modal-close').on('click',function(){
-    $(js_remind_modal).fadeOut();
-    return false;
-    });
- })
+}) //これは消さない！ 
  
   .fail(function() {
     console.log(response);
@@ -137,6 +145,8 @@ $.ajax({
        <div class="modal__bg js-remind-modal-close"></div> <!--影-->
           <div class="modal__content">
             <p id="remind_question"></p>
+            <p>答えを入力してください</p>
+            <p id="remind_answer"></p>
             <button type="submit" class="btn-border">閉じる</button>
           </div>
       </div>
