@@ -4,7 +4,6 @@
 
 
 @section('content')
-<div id="app">
  
  <div class="container">
   <div class="row justify-content-center">
@@ -28,15 +27,19 @@
  <!--リマインダーカテゴリ一覧--> 
    　  <tr>
     　  <td class="item_name" width=500>{{ \Str::limit($item->name, 50)}}</td>
-    　   <!--中身をカウントして表示するコードを後で入れる-->
-       <td width=200>10&ensp;
+<!--中身のカウント-->
+       <td width=200>
+         @php
+           $remind = $reminds->where('category_id' , $item->id)->get();
+           echo count($remind).'件';
+         @endphp
+         &ensp;
         <a href="{{ action('CategoryController@remind',['id' => $item->id ,'name' => $item->name]) }}">
          <i class="fas fa-angle-double-right text-dark"></i>
         </a>
        </td>
        
  <!--モーダルボタン：カテゴリ編集-->
- <!--<div class="modal" id="modal02{{$item->id}}" ←カテゴリ新規作成と同じモーダルを使用する場合これを利用する-->
         <td width=80>
           <a href="" class="js-modal-open" data-target="modal02{{$item->id}}">
             <i class="far fa-edit text-dark"></i>
@@ -93,7 +96,7 @@
    
     <form name="addcategory" action="{{ action('CategoryController@create') }}" method="post" enctype="multipart/form-data">
     @if (count($errors) > 0)
-     <ul>
+     <ul class='js-hidden'>
        @foreach($errors->all() as $e)
          <li>{{ $e }}</li>
        @endforeach
@@ -123,7 +126,7 @@
    
     <form name="addcategory" action="{{action('CategoryController@update')}}" method="post" enctype="multipart/form-data">
     @if (count($errors) > 0)
-     <ul>
+     <ul class="js-hidden">
        @foreach($errors->all() as $e)
          <li>{{ $e }}</li>
        @endforeach
@@ -141,9 +144,8 @@
   </div>
   
  </div>
-@endforeach
+  @endforeach
 
-</div>
 @endsection
 
 @section('js')
@@ -166,6 +168,7 @@ if (Session::has('modal')) {
       }
     @endif
     return false;
+
 }
 </script>
 @endsection

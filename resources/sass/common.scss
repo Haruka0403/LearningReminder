@@ -115,3 +115,30 @@ section{
     padding: 0;
     margin: 0;
 }
+
+// detail.blade table
+table.row th,
+table.row td{
+
+  width:100%;
+
+  display:block;
+
+}
+
+.table01{
+  padding: 10px 20px;
+}
+
+.table02{
+  padding: 10px;
+}
+
+// edit.blade
+#remindAt_form{
+ display: none;
+}
+
+#remindAt_return{
+  display: none;
+}

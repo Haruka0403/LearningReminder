@@ -17,11 +17,9 @@ class CreateRemindsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('category_id');
             $table->string('question');
-            $table->string('image_path')->nullable();
             $table->string('answer');
-            $table->string('hint');
-            $table->string('comment');
-            $table->string('start_at');
+            $table->string('hint')->nullable();
+            $table->string('comment')->nullable();
             
             $table->timestamps();
         });

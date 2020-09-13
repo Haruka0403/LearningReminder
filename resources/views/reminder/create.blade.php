@@ -51,11 +51,7 @@
            {{ old('question') }}
          </textarea>
         </div>
-      
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+        <hr class="text-muted">
         
 <!--2.Answer-->
         <div class="form-group">
@@ -64,22 +60,14 @@
            {{ old('answer') }}
          </textarea>
         </div>
-        
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+        <hr class="text-muted">
         
 <!--3.Hint-->
         <div class="form-group">
          <label for="hint" class="mb-0 h3">ヒント</label>
          <input type="text" class="form-control" name="hint" value="{{ old('hint') }}">
         </div> 
-        
-<!--点線-->
-      <div class="col-mp-0 text-center">
-        <hr class="dotline">
-      </div>  
+        <hr class="text-muted">
         
 <!--4.補足-->
         <div class="form-group">
@@ -88,24 +76,9 @@
            {{ old('comment') }}
          </textarea>
         </div>
+        <hr class="text-muted">
         
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
-        
-<!--5.リマインド開始日-->
-        <div class="form-group">
-         <label for="start" class="mb-0 h3">リマインド開始日</label>
-         <input type="date" class="form-control" name="start_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
-        </div>
-        
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
-        
-<!--6.リマインド回数-->
+<!--5.リマインド回数-->
       <h3 class="mt-3">リマインド日程</h3>
       
       <div id="demo-area" class="form-group">
@@ -115,7 +88,11 @@
             <span class="input-group-text">1回目</span>
           </div>
         
-          <input type="datetime-local" class="form-control" name="remind_at[]" value="" min="">
+          @php
+          $today = date("Y-m-d\TH:i");
+          @endphp
+          
+          <input id="remind_at" type="datetime-local" class="form-control" name="remind_at[]" value="{{ $today }}" min="{{ $today }}">
 
           <div class="demo-minus input-group-append">
             <span class="btn btn-danger">-</span>
@@ -123,15 +100,11 @@
           
         </div>
       </div>
-      
+
       <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
-      
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+      <hr class="text-muted">
          
-<!--7.作成ボタン-->
+<!--6.作成ボタン-->
           <div class="form-row text-center mt-1">
             <div class="col-12">
               {{ csrf_field() }}

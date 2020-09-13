@@ -12,16 +12,20 @@ class Remind extends Model
     public static $rules = array(
         'question'=> 'required',
         'answer'=> 'required',
-        'hint'=> 'required',
-        'comment'=> 'required',
-        'start_at'=> 'required',
+        // 'hint'=> 'required',
+        // 'comment'=> 'required',
+        // 'start_at'=> 'required',
     );
     
+    // 主テーブル
     public function category(){
       return $this ->belongsTo('App\Category');
     } 
     
-    // public function getIdData(){
-    //     return $this->id;
-    // }
+    // 従テーブル
+    public function shedules()
+    {
+      return $this->hasMany('App\Schedule');
+
+    }
 }

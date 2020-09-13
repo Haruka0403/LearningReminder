@@ -53,10 +53,11 @@
     </div>
     
   <!--詳細画面移動ボタン-->
-     <div class="text-right mr-3 mb-2" style="font-size: 80%;">
-      <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}" class=" text-muted">
-        詳細&ensp;<i class="fas fa-angle-double-right text-muted"></i>
-      </a>
+     <div class="text-right text-muted mr-3 mb-2" style="font-size: 80%;">
+       詳細
+        <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
+          <i class="fas fa-angle-double-right text-muted"></i>
+        </a>
      </div>
 
   <!--点線-->
@@ -67,15 +68,21 @@
   <!--編集と消去部-->
     <div class="row justify-content-center m-2">
      <!--編集--> 
-      <a href="{{ action('RemindController@edit',['id' => $remind->id ]) }}" class="col-md-4 text-center text-muted">
-        編集&ensp;<i class="far fa-edit text-dark"></i>
+     <div class="col-md-4 text-center text-dark">
+      編集
+      <a href="{{ action('RemindController@edit',['id' => $remind->id ]) }}">
+        <i class="far fa-edit text-dark"></i>
       </a>
+      </div>
      
     <!--消去-->
       <!-- Button trigger modal -->
-      <a href="" class="col-md-4 text-center text-muted" data-toggle="modal" data-target="#exampleModal{{$remind->id}}">
-        消去&ensp;<i class="far fa-trash-alt"></i>
-      </a>
+      <div class="col-md-4 text-center text-dark">
+        消去
+        <a href="" data-toggle="modal" data-target="#exampleModal{{$remind->id}}">
+          <i class="far fa-trash-alt text-dark"></i>
+        </a>
+      </div>
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModal{{$remind->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

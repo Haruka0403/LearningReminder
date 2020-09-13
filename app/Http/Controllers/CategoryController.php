@@ -10,6 +10,8 @@ use App\Category;
 
 use App\Remind;
 
+use App\Schedule;
+
 use Illuminate\Support\Facades\Auth;
 
 use Validator;
@@ -19,13 +21,12 @@ class CategoryController extends Controller
     public function top (Request $request)
     {
         $items = Category::all();
-        return view('category.category',['items' => $items]);
+        $reminds = new Remind;
+        return view('category.category',['items' => $items , 'reminds' => $reminds]);
     }
   
     public function create (Request $request)
     {
-        // $request->session()->flash('errors', $errors);
-        
         $validator = Validator::make($request->all(), Category::$rules);
         
         if ($validator->fails()) {
@@ -50,13 +51,16 @@ class CategoryController extends Controller
     
       public function update (Request $request)
     {
-        // $request->session()->flash('errors', $errors);
+        // sessionの中の調べかた
+        // $data = $request->session()->all();
+        // dd($data);
         
         $validator = Validator::make($request->all(), Category::$rules);
         
         if ($validator->fails()) {
-          return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal02');
+          return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal02'.$request->id);
         }
+        
         
         //Modelからデータを取得
         $category = Category::find($request->id);
@@ -90,11 +94,31 @@ class CategoryController extends Controller
         return view('reminder.index',['categories' => $categories , 'reminds' => $reminds]);
     }
     
- 
-    public function search ()
+    public function ajax (Request $request)
     {
-        return view('category.search');
+    // できない→できた！！(タイムゾーンが日本のなっていない)
+        $today = date("Y-m-d\TH:i");
+        dd($today);
+        // echo gettype($today);
+        
+        // if (Schedule::where('remind_at' , $today)){
+        //   $schedule = Schedule::where('remind_at' , $today)->first();
+        //   $remind = Remind::where('id' , $schedule->remind_id)->get();
+        // //   dd($schedule);
+        // }
+        
+    // できない→できた！！（getは複数形なので、108行目はfirst)
+        //   $schedule = Schedule::where('remind_at' , '2020-09-13T14:00')->first();
+        //   $remind = Remind::where('id' , $schedule->remind_id)->get();
+        //   dd($remind);
+
+
+    //  できる
+        // $remind = Remind::where('id' , 5)->get();
+        // dd($remind);
+        
+        // return $schedule;
+        return $remind;
     }
- 
- 
+    
 }

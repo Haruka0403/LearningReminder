@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Function extends Model
+class Schedule extends Model
 {
   
    //varidation
@@ -12,7 +12,12 @@ class Function extends Model
 
     public static $rules = array(
       'reminds_id'=> 'required',
-      'remind_times'=> 'required',
       'remind_at'=> 'required',
       );
+      
+  // 主テーブル
+    public function remind(){
+    return $this ->belongsTo('App\Remind');
+    } 
+  
 }

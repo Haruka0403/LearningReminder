@@ -25,8 +25,49 @@
     {{-- 共通のcss --}}
     <link href="{{ secure_asset('css/common.css') }}" rel="stylesheet">
     
-    <!--Ajax-->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!--通知モーダルjs-->
+    
+<script>
+$(function(){
+    //10000ミリ秒ごとにajaxで新着コメントを問合せ
+    setInterval(update, 10000);
+  });
+  
+function update(){
+//ajaxでデータ取得 
+$.ajax({
+  url: '/ajax', 
+  type: 'GET', 
+  data: {},
+  dataType: 'json' 
+    })
+
+ .done(function(response) {
+   console.log(response);
+
+  for(var i=0; i<Object.keys(response).length; i++){
+    document.getElementById("remind_question").innerText = '問題：' + response[i].question;
+  }
+  
+     
+   // モーダル
+    var js_remind_modal = document.getElementById('js_remind_modal');
+    console.log(js_remind_modal);
+    $(js_remind_modal).fadeIn();
+    return false;
+    
+    $('.js-remind-modal-close').on('click',function(){
+    $(js_remind_modal).fadeOut();
+    return false;
+    });
+ })
+ 
+  .fail(function() {
+    console.log(response);
+    // alert('一致データなし');
+});
+}
+</script>
     
 </head>
 
@@ -86,13 +127,25 @@
     </nav>
 
     <section class="mt-3">
-      @yield('content')
+      <div id="app">
+        @yield('content')
+      </div>
     </section>
+    
+<!--通知モーダル-->
+      <div id="js_remind_modal" class="modal">
+       <div class="modal__bg js-remind-modal-close"></div> <!--影-->
+          <div class="modal__content">
+            <p id="remind_question"></p>
+            <button type="submit" class="btn-border">閉じる</button>
+          </div>
+      </div>
+<!--ここまで-->
     
     <!--common_jquery.js-->
     <script src="{{ mix('js/common_jquery.js') }}"></script>
-
-  
+    
 </body>
 </html>
 @yield('js')
+

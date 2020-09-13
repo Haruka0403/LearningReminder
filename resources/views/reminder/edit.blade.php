@@ -10,14 +10,14 @@
    
   <h2 class="col-md-9">リマインダー　編集</h2>
   
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="card">
       
       <div class="card-header">
        <div class="row">
 
 <!--カテゴリー名-->
-      <h4 class="col-md-9 mb-0">{{ $categories->name }}</h4>
+      <h4 class="col-md-8 mb-0">{{ $categories->name }}</h4>
 
 <!--一覧へ戻る-->
       <div class="mb-0" style="font-size: 80%;">
@@ -45,6 +45,7 @@
       <input type="hidden" name="id" value="{{ $categories->id }}">
       <input type="hidden" name="id" value="{{ $reminds->id }}">
       <input type="hidden" name="category_id" value="{{$reminds->category_id}}">
+      
         
 <!--1.Question-->
         <div class="form-group mb-0">
@@ -53,11 +54,7 @@
            {{ $reminds->question}}
          </textarea>
         </div>
-      
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+        <hr class="text-muted">
         
 <!--2.Answer-->
         <div class="form-group">
@@ -66,22 +63,14 @@
            {{ $reminds->answer}}
          </textarea>
         </div>
-        
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+        <hr class="text-muted">
         
 <!--3.Hint-->
         <div class="form-group">
          <label for="hint" class="mb-0 h3">ヒント</label>
          <input type="text" class="form-control" name="hint" value="{{ $reminds->hint }}">
         </div> 
-        
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>  
+        <hr class="text-muted">
         
 <!--4.補足-->
         <div class="form-group">
@@ -90,50 +79,111 @@
            {{ $reminds->comment}}
          </textarea>
         </div>
+        <hr class="text-muted">
         
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
-        
-<!--5.リマインド開始日-->
-        <div class="form-group">
-         <label for="start" class="mb-0 h3">リマインド開始日</label>
-         <input type="date" class="form-control" name="start_at" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
-        </div>
-        
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
-        
-<!--6.リマインド回数-->
-      <h3 class="mt-3">リマインド回数</h3>
-      
-      <div id="demo-area" class="form-group">
-        <div class="unit input-group mb-2">
-          
-          <div class="input-group-prepend">
-            <span class="input-group-text">1回目</span>
-          </div>
-        
-          <input type="datetime-local" class="form-control" name="" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
+<!--5.リマインド回数-->
+　　<div class="row">
+      <h3 class="ml-3">リマインド回数</h3>
 
-          <div class="demo-minus input-group-append">
-            <span class="btn btn-danger">-</span>
+      <!--revise-->
+        <a href="" id="remindAt_revise" class="ml-3" data-toggle="modal" data-target="#exampleModal">
+          <i class="far fa-edit mt-2"></i>
+        </a>
+        
+      <!--return-->
+        <a href="" id="remindAt_return" class="ml-3" data-toggle="modal" data-target="#exampleModal2">
+          <i class="fas fa-undo-alt mt-2"></i>
+        </a>
+      </div>
+        
+        <!--Modal(revise) -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                
+                <p>リマインド回数を編集します。</p>
+                <p>現在登録されているリマインド回数が全てリセットされます。</p>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+                <button id="remindAt_edit" type="button" class="btn btn-primary">編集する</button>
+              </div>
+            </div>
           </div>
-          
         </div>
+      
+        <!--Modal2(return) -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                
+                <p>リマインド回数を元に戻しますか？</p>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+                <button id="remindAt_edit2" type="button" class="btn btn-primary">戻す</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      <!--編集前-->
+      <table id="remindAt_table" class="row">
+        <thead>
+          <tr>
+            @for ($i = 1; $i <= count($schedules); $i++)
+            <th class= "table01">{{ $i }} 回目 <i class="fas fa-angle-double-right"></i> </th>
+            @endfor
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            @foreach($schedules as $schedule)
+            <td class = "table02">{{ $schedule -> remind_at }}</td>
+            @endforeach
+          </tr>
+        </tbody>
+      </table>
+      
+      <!--編集画面-->
+      <div id="remindAt_form">
+        <div id="demo-area" class="form-group">
+          <div class="unit input-group mb-2">
+            
+            <div class="input-group-prepend">
+              <span class="input-group-text">1回目</span>
+            </div>
+            
+          @php
+          $today = date("Y-m-d\TH:i");
+          @endphp
+          
+            <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $today }}" min="{{ $today }}">
+  
+            <div class="demo-minus input-group-append">
+              <span class="btn btn-danger">-</span>
+            </div>
+            
+          </div>
+        </div>
+
+        <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       </div>
       
-      <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
-      
-<!--点線-->
-      <div class="col-md p-0 text-center">
-        <hr class="dotline">
-      </div>
+      <hr class="text-muted">
          
-<!--7.作成ボタン-->
+<!--6.作成ボタン-->
           <div class="form-row text-center mt-1">
             <div class="col-12">
               {{ csrf_field() }}

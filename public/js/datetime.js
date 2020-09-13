@@ -132,6 +132,21 @@ $(function () {
         elements[i].textContent = String(i + 1) + "回目";
       }
     }
+  }); // edit.blade
+
+  $('#remindAt_edit').on('click', function () {
+    $('#remindAt_table').hide();
+    $('#remindAt_revise').hide();
+    $('#remindAt_form').show();
+    $('#remindAt_return').show();
+    $('#exampleModal').modal('hide');
+  });
+  $('#remindAt_edit2').on('click', function () {
+    $('#remindAt_table').show();
+    $('#remindAt_revise').show();
+    $('#remindAt_form').hide();
+    $('#remindAt_return').hide();
+    $('#exampleModal2').modal('hide');
   });
 });
 

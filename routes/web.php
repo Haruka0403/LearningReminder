@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::get('/search','CategoryController@search');
     Route::get('/archive','CategoryController@archive');
+
+    
     
 // リマインドコントローラ
     Route::get('reminder/create','RemindController@add');
@@ -41,6 +43,5 @@ Route::group(['middleware' => 'auth'], function() {
 
 });
 
-// ajax練習
-// Route::get('/apiview', 'CategoryController@apiview');
-// Route::get('/ajax', 'CategoryController@ajax');
+// ajax
+Route::get('/ajax', 'CategoryController@ajax');

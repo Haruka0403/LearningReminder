@@ -113,3 +113,25 @@ section {
   margin: 0;
 }
 
+table.row th,
+table.row td {
+  width: 100%;
+  display: block;
+}
+
+.table01 {
+  padding: 10px 20px;
+}
+
+.table02 {
+  padding: 10px;
+}
+
+#remindAt_form {
+  display: none;
+}
+
+#remindAt_return {
+  display: none;
+}
+

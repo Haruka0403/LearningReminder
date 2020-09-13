@@ -1,7 +1,7 @@
 'use strict';
 
 
-// モーダル　カテゴリー新規作成用
+// モーダル
 
 $(function(){
     $('.js-modal-open').each(function(){
@@ -16,5 +16,9 @@ $(function(){
         $('.js-modal').fadeOut();
         return false;
     }); 
+// エラー文非表示
+    $('.js-modal-open').on('click', function(){
+        $('.js-hidden').css('display' , 'none');
+    });
     });
 
