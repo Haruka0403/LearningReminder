@@ -98,13 +98,13 @@ class CategoryController extends Controller
     {
     // できない→できた！！(タイムゾーンが日本のなっていない)
         $today = date("Y-m-d\TH:i");
-        dd($today);
+        // dd($today);
         // echo gettype($today);
         
         // if (Schedule::where('remind_at' , $today)){
-        //   $schedule = Schedule::where('remind_at' , $today)->first();
-        //   $remind = Remind::where('id' , $schedule->remind_id)->get();
-        // //   dd($schedule);
+          $schedule = Schedule::where('remind_at' , $today)->first();
+          $remind = Remind::where('id' , $schedule->remind_id)->get();
+        //    dd($schedule);
         // }
         
     // できない→できた！！（getは複数形なので、108行目はfirst)
