@@ -47,19 +47,8 @@ $.ajax({
    
   for(var i=0; i<Object.keys(response).length; i++){
     const answer = response[i].answer;
-    let loc = 0;
-    
-    document.getElementById("remind_question").innerText = '問題：' + response[i].question;
-    document.getElementById("remind_answer").textContent =  answer;
- 
-
-    document.addEventListener('keydown', e => {
-      if(e.key !== answer[loc]){
-      return;
-    }
-      loc++;
-      remind_answer.textContent ='_ '.repeat(loc) + answer.substring(loc);
-  }); 
+    document.getElementById("remind_id").value = response[i].id;
+    document.getElementById("remind_question").textContent　= '問題：' + response[i].question;
   }
      
    // モーダル
@@ -75,6 +64,36 @@ $.ajax({
     // alert('一致データなし');
 });
 }
+
+// 答えの正誤判断
+$(function(){ 
+   $('#remind_submit').click('on', function(){
+         $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
+         $.ajax({
+             url: '/ajax/answer',
+             type: 'POST',
+             dataType: 'json',
+             data: {
+                    "remind_answer" :$('#remind_answer').val() ,
+                    "remind_id":$('#remind_id').val() 
+                   }
+         })
+
+         .done(function(response) {
+           console.log(response);
+            alert ('正解です！');
+ 
+            $('#js_remind_modal').fadeOut();
+            return false;
+         })
+
+         .fail(function(response) {
+           alert ('不正解です。もう一度答えを記入してください。')
+         });
+     })
+});
 </script>
     
 </head>
@@ -144,10 +163,14 @@ $.ajax({
       <div id="js_remind_modal" class="modal">
        <div class="modal__bg js-remind-modal-close"></div> <!--影-->
           <div class="modal__content">
+          <!--id-->
+            <input type="hidden" id="remind_id" value="">
+          <!--question-->
             <p id="remind_question"></p>
-            <p>答えを入力してください</p>
-            <p id="remind_answer"></p>
-            <button type="submit" class="btn-border">閉じる</button>
+            
+            <label for="">答えを入力してください</label>
+              <input type="form-control" id="remind_answer"><br>
+            <button type="submit" class="btn-border" id="remind_submit">提出！</button>
           </div>
       </div>
 <!--ここまで-->
