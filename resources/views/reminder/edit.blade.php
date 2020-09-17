@@ -159,25 +159,23 @@
 <!--編集画面-->
       <div id="remindAt_form">
         <div id="demo-area" class="form-group">
+        @php $i = 1; @endphp
+        @foreach($schedules as $schedule)
           <div class="unit input-group mb-2">
             
             <div class="input-group-prepend">
-              <span class="input-group-text">1回目</span>
+              <span class="input-group-text">{{$i}}回目</span>
             </div>
-            
-          @php
-          $today = date("Y-m-d\TH:i");
-          @endphp
+
+            <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $schedule -> remind_at }}" min="{{ date("Y-m-d\TH:i") }}">
           
-          {{--質問1--}}
-            <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $today }}" min="{{ $today }}">
-            <!--<input type="datetime-local" class="form-control" name="remind_at[]" value="{{-- $schedule -> remind_at --}}">-->
-  
             <div class="demo-minus input-group-append">
               <span class="btn btn-danger">-</span>
             </div>
             
           </div>
+        @php $i++; @endphp
+        @endforeach
         </div>
 
         <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
