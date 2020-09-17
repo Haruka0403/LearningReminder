@@ -12,9 +12,6 @@ class Remind extends Model
     public static $rules = array(
         'question'=> 'required',
         'answer'=> 'required',
-        // 'hint'=> 'required',
-        // 'comment'=> 'required',
-        // 'start_at'=> 'required',
     );
     
     // 主テーブル

@@ -30,7 +30,7 @@
 <script>
 $(function(){
     //10000ミリ秒ごとにajaxで新着コメントを問合せ
-    setInterval(update, 10000);
+    // setInterval(update, 10000);
   });
   
 function update(){
@@ -47,21 +47,50 @@ $.ajax({
    
   for(var i=0; i<Object.keys(response).length; i++){
     const answer = response[i].answer;
+    const hint = response[i].hint;
     document.getElementById("remind_id").value = response[i].id;
-    document.getElementById("remind_question").textContent　= '問題：' + response[i].question;
-  }
-     
-   // モーダル
-    var js_remind_modal = document.getElementById('js_remind_modal');
-    console.log(js_remind_modal);
-    $(js_remind_modal).fadeIn();
-    return false;
+    document.getElementById("remind_question").textContent　= response[i].question;
+    document.getElementById("remind_hint").textContent = "ヒント！" + hint;
+    document.getElementById("show_answer").textContent = "正解は" + answer + "でした!";
+  } //forの閉じタグ
+
+//ヒント→降参→正解を表示してモーダルを閉じる 
+  $("#remind_hint").hide();
+  $("#hide_giveup").hide();
+  $("#show_answer").hide();
+  $("#remind_modal_close").hide();
+  
+//ヒント  
+  $('#show_hint').click('on', function(){
+    $('#hide_show_hint').hide();
+    $("#remind_hint").show();
     
-}) //これは消さない！ 
+    $("#hide_giveup").show();
+  });
+  
+//降参 
+  $('#giveup').click('on', function(){
+    $('#hide_by_giveup').hide();
+    $("#show_answer").show();
+    $("#remind_modal_close").show();
+  });
+  
+ // モーダルfadeIn
+  var js_remind_modal = document.getElementById('js_remind_modal');
+  console.log(js_remind_modal);
+  $(js_remind_modal).fadeIn();
+  return false;
+  
+  // 降参：モーダルをfadeOut
+  $('#remind_modal_close').click('on', function(){
+   $('#js_remind_modal').fadeOut();
+  return false;
+  });
+    
+}) //doneの閉じタグ
  
   .fail(function() {
-    console.log(response);
-    // alert('一致データなし');
+    // console.log(response);
 });
 }
 
@@ -83,9 +112,8 @@ $(function(){
 
          .done(function(response) {
            console.log(response);
-            alert ('正解です！');
- 
-            $('#js_remind_modal').fadeOut();
+           alert ('正解です！');
+           $('#js_remind_modal').fadeOut();
             return false;
          })
 
@@ -165,13 +193,39 @@ $(function(){
           <div class="modal__content">
           <!--id-->
             <input type="hidden" id="remind_id" value="">
-          <!--question-->
-            <p id="remind_question"></p>
-            
-            <label for="">答えを入力してください</label>
-              <input type="form-control" id="remind_answer"><br>
-            <button type="submit" class="btn-border" id="remind_submit">提出！</button>
+<!--ヒントを表示する-->
+          <div id="hide_show_hint" style="font-size: 60%;" class="text-muted text-right">
+            <a id="show_hint"><i class="far fa-lightbulb"></i></a>
+            ヒントを表示する
           </div>
+<!--降参する-->
+          <div id="hide_giveup" style="font-size: 60%;" class="text-muted text-right">
+            <a id="giveup"><i class="far fa-dizzy"></i></a>
+            降参する
+          </div>
+<!--hint-->
+          <p id="remind_hint"></p>
+<!--question-->
+          <h5>
+            <span style="border-bottom: solid 5px powderblue;">問題</span>
+          </h5>
+            <p id="remind_question"></p>
+<!--回答-->
+          <h5>
+            <span style="border-bottom: solid 5px powderblue;">解答</span>
+          </h5>
+          <div id="hide_by_giveup">
+            <label class="m-0" style="font-size: 80%;">答えを入力してください</label>
+              <input type="form-control" id="remind_answer"><br>
+              <button type="submit" class="btn-border mt-2" id="remind_submit">提出！</button>
+          </div>
+          
+          <!--<div id="show_by_giveup">-->
+              <p id="show_answer"></p>
+              <button type="button" class="btn-border mt-2" id="remind_modal_close">終了</button>
+          <!--</div>-->
+          
+        </div>
       </div>
 <!--ここまで-->
     

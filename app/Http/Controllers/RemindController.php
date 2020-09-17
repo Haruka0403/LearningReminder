@@ -75,6 +75,7 @@ class RemindController extends Controller
       
       // Varidation
       $this->validate($request, Remind::$rules);
+      $this->validate($request, Schedule::$rules);
       
 //リマインドテーブル
       $remind = Remind::find($request->id);
@@ -101,10 +102,6 @@ class RemindController extends Controller
           $schedule->save();
         }
       
-      
-      // 質問１：何も変更がない場合のコードはどうやって書けば良いか
-      // 試した事：edit.bladeの155行目を追記したが、既存の配列にプラスして1つデータを付け加えられ、それがnullなのでエラーとなる。
-
       return redirect(route('reminder', ['id' => $request->category_id]));
     }
     

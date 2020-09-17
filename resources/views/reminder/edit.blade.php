@@ -137,7 +137,7 @@
           </div>
         </div>
       
-      <!--編集前-->
+<!--編集前-->
       <table id="remindAt_table" class="row">
         <thead>
           <tr>
@@ -156,7 +156,7 @@
         </tbody>
       </table>
       
-      <!--編集画面-->
+<!--編集画面-->
       <div id="remindAt_form">
         <div id="demo-area" class="form-group">
           <div class="unit input-group mb-2">
@@ -169,7 +169,9 @@
           $today = date("Y-m-d\TH:i");
           @endphp
           
+          {{--質問1--}}
             <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $today }}" min="{{ $today }}">
+            <!--<input type="datetime-local" class="form-control" name="remind_at[]" value="{{-- $schedule -> remind_at --}}">-->
   
             <div class="demo-minus input-group-append">
               <span class="btn btn-danger">-</span>
