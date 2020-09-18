@@ -45,4 +45,4 @@ Route::group(['middleware' => 'auth'], function() {
 
 // ajax
 Route::get('/ajax', 'CategoryController@ajax');
-Route::any('/ajax/answer', 'CategoryController@ajaxAnswer');
+// Route::any('/ajax/answer', 'CategoryController@ajaxAnswer');

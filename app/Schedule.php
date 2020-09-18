@@ -11,8 +11,8 @@ class Schedule extends Model
     protected $guarded = array('id');
 
     public static $rules = array(
-      'remind_at'=> 'required',
-      );
+        'remind_at[]'=> 'required',
+        );
       
   // 主テーブル
     public function remind(){

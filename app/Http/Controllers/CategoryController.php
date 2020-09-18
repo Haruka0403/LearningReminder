@@ -102,21 +102,27 @@ class CategoryController extends Controller
       // $remind = Remind::where('id' , $schedule->remind_id)->get();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-15T20:36')->first();
+      $schedule = Schedule::where('remind_at' , '2020-09-17T13:09')->first();
       $remind = Remind::where('id' , $schedule->remind_id)->get();
 
         return $remind;
     }
     
-    public function ajaxAnswer (Request $request)
-    {
-      $remind_id = $request->input('remind_id');
-      $remind_answer = $request->input('remind_answer');
+    // public function ajaxAnswer (Request $request)
+    // {
+    //   $remind_id = $request->remind_id;
+    //   $input_answer = $request->input_answer;
+    //   // \Debugbar::info($remind_answer);
       
-      $reminds = Remind::find($remind_id);
+    //   $remind = Remind::find($remind_id);
+     
+    //   echo("サーバー受信回答:" . $_POST['input_answer']);
       
-      if($reminds->answer === $remind_answer){
-      return $reminds->answer;
-      }
-    } 
+    //   if($remind->answer == $input_answer){
+    //     return $remind->answer;
+    //   }
+    //   else{
+    //     return $input_answer;
+    //   }
+    // } 
 }

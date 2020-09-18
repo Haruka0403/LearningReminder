@@ -82,83 +82,10 @@
         <hr class="text-muted">
         
 <!--5.リマインド回数-->
-　　<div class="row">
-      <h3 class="ml-3">リマインド回数</h3>
+      <h3>リマインド回数</h3>
 
-      <!--revise-->
-        <a href="" id="remindAt_revise" class="ml-3" data-toggle="modal" data-target="#exampleModal">
-          <i class="far fa-edit mt-2"></i>
-        </a>
-        
-      <!--return-->
-        <a href="" id="remindAt_return" class="ml-3" data-toggle="modal" data-target="#exampleModal2">
-          <i class="fas fa-undo-alt mt-2"></i>
-        </a>
-      </div>
-        
-        <!--Modal(revise) -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                
-                <p>リマインド回数を編集します。</p>
-                <p>現在登録されているリマインド回数が全てリセットされます。</p>
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
-                <button id="remindAt_edit" type="button" class="btn btn-primary">編集する</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <!--Modal2(return) -->
-        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                
-                <p>リマインド回数を元に戻しますか？</p>
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
-                <button id="remindAt_edit2" type="button" class="btn btn-primary">戻す</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-<!--編集前-->
-      <table id="remindAt_table" class="row">
-        <thead>
-          <tr>
-            @for ($i = 1; $i <= count($schedules); $i++)
-            <th class= "table01">{{ $i }} 回目 <i class="fas fa-angle-double-right"></i> </th>
-            @endfor
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            @foreach($schedules as $schedule)
-            <td class = "table02">{{ $schedule -> remind_at }}</td>
-            @endforeach
-          </tr>
-        </tbody>
-      </table>
-      
 <!--編集画面-->
-      <div id="remindAt_form">
-        <div id="demo-area" class="form-group">
+      <div id="demo-area" class="form-group">
         @php $i = 1; @endphp
         @foreach($schedules as $schedule)
           <div class="unit input-group mb-2">
@@ -176,10 +103,9 @@
           </div>
         @php $i++; @endphp
         @endforeach
-        </div>
-
-        <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       </div>
+
+      <div id="demo-plus" class="btn btn-primary btn-sm">+追加</div>
       
       <hr class="text-muted">
          
@@ -192,7 +118,6 @@
           </div>
          
          </form>
-        </div>
  
      </div>
    </div>
