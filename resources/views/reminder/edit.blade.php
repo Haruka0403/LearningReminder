@@ -94,7 +94,7 @@
               <span class="input-group-text">{{$i}}回目</span>
             </div>
 
-            <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $schedule -> remind_at }}" min="{{ date("Y-m-d\TH:i") }}">
+            <input type="datetime-local" class="form-control" name="remind_at[]" value="{{ $schedule -> remind_at }}" min="">
           
             <div class="demo-minus input-group-append">
               <span class="btn btn-danger">-</span>
@@ -130,7 +130,4 @@
 <!--datetime.js-->
 <script src="{{ mix('js/datetime.js') }}"></script>
 @endsection
-
-
-
 

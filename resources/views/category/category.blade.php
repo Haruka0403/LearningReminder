@@ -29,11 +29,10 @@
     　  <td class="item_name" width=500>{{ \Str::limit($item->name, 50)}}</td>
 <!--中身のカウント-->
        <td width=200>
-         @php
-           $remind = $reminds->where('category_id' , $item->id)->get();
-           echo count($remind).'件';
-         @endphp
-         &ensp;
+        @php
+         $remind = $reminds->where('category_id' , $item->id)->get();
+         echo count($remind).' 件';
+        @endphp
         <a href="{{ action('CategoryController@remind',['id' => $item->id ,'name' => $item->name]) }}">
          <i class="fas fa-angle-double-right text-dark"></i>
         </a>

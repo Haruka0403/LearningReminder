@@ -25,15 +25,26 @@
     {{-- 共通のcss --}}
     <link href="{{ secure_asset('css/common.css') }}" rel="stylesheet">
     
-    <!--通知モーダルjs-->
-    
+<!--通知モーダルjs-->
 <script>
+var modalon=false;
+
+function erasemodal(){
+  document.getElementById('remind_answer').value = "";
+  $('#js_remind_modal').fadeOut();
+  modalon = false;
+  return false;
+}
+
 $(function(){
-    //10000ミリ秒ごとにajaxで新着コメントを問合せ
     setInterval(update, 10000);
   });
   
 function update(){
+  if (modalon) {
+    return false;
+  }
+  
 //ajaxでデータ取得 
 $.ajax({
   url: '/ajax', 
@@ -48,19 +59,29 @@ $.ajax({
   for(var i=0; i<Object.keys(response).length; i++){
     var answer = response[i].answer;
     var hint = response[i].hint;
-    document.getElementById("remind_id").value = response[i].id;
+    // document.getElementById("remind_id").value = response[i].id;
+    document.getElementById("hidden_remind_id").value = response[i].id;
     document.getElementById("remind_question").textContent　= response[i].question;
-    document.getElementById("remind_hint").textContent = "ヒント！" + hint;
+    
+    if(hint == null || ""){
+      document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
+    }
+    else{
+      document.getElementById("remind_hint").textContent = "ヒント！" + hint;
+    }
+    
     document.getElementById("show_answer").textContent = "正解は" + answer + "でした!";
   } //forの閉じタグ
 
-//(1.問題表示)→2.ヒント→3.降参,正解を表示してモーダルを閉じる 
-  $("#remind_hint").hide();
-  $("#hide_giveup").hide();
-  $("#show_answer").hide();
-  $("#remind_modal_close").hide();
+
+// モーダルfadeIn
+  var js_remind_modal = document.getElementById('js_remind_modal');
+  console.log(js_remind_modal);
   
-//2.ヒント  
+//1.問題表示→2.ヒント→3.降参,正解を表示してモーダルを閉じる
+//1.問題表示→2.ヒント
+ $("#remind_hint").hide();
+ 
   $('#show_hint').click('on', function(){
     $('#hide_show_hint').hide();
     $("#remind_hint").show();
@@ -69,39 +90,51 @@ $.ajax({
   });
 
 // 答え提出（ajax使わないパターン)
-    $('#remind_submit').click('on', function(){
-      var toSend = $('#remind_answer').val();
-      if(toSend == answer){
-        alert('正解です！');
-        $('#js_remind_modal').fadeOut();
-        return false;
-      }
-      else{
-       alert('不正解です。もう一度答えを記入してください。');
-      }
-    });
+  $('#remind_submit').click('on', function(){
+    var toSend = $('#remind_answer').val();
+    if(toSend == answer){
+      // alert('正解です！');
+      // return erasemodal();
+      
+    // 1.htmlにidを送る ※for内に記入しないと送信できなかった為、上記63行目。
+    // document.getElementById("hidden_remind_id").value = response[i].id;
+    	document.resultform.action="/result";
+    	document.resultform.method="post";
+    	document.resultform.submit();
+    	
+    	 alert('正解です！');
+  }
+    
+    else{
+     alert('不正解です。もう一度答えを記入してください。');
+    }
+  });
   
-//3.降参 
-  $('#giveup').click('on', function(){
+//2.ヒント→3.降参
+$("#hide_giveup").hide();
+$("#show_answer").hide();
+$("#remind_modal_close").hide();
+  
+  $(function(){
+  $(document).on('click','#giveup', function() {
+  // $('#giveup').click('on', function(){
     $('#hide_by_giveup').hide();
     $("#show_answer").show();
     $("#remind_modal_close").show();
+    });
   });
-
- // モーダルfadeIn
-  var js_remind_modal = document.getElementById('js_remind_modal');
-  console.log(js_remind_modal);
+  
   $(js_remind_modal).fadeIn();
+  modalon = true;
   return false;
   
-  // 降参：モーダルをfadeOut
-  // $(function(){
+// 降参：モーダルをfadeOut
+  $(function(){
   $(document).on('click','#remind_modal_close', function() {
     alert('テスト');
-    // $('#js_remind_modal').fadeOut();
-    return false;
+    return erasemodal();
     });
-  // });
+  });
   
 }) //doneの閉じタグ
  
@@ -109,40 +142,6 @@ $.ajax({
     // console.log(response);
 });
 }
-
-
-// 答えの正誤判断(AJAX)
-// $(function(){ 
-//   $('#remind_submit').click('on', function(){
-//     // var tosend = $('#remind_answer').val();
-//     var tosend = document.getElementById("remind_answer").value;
-//     console.log("入力:"+tosend);
-        // $.ajaxSetup({
-        //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-        // });
-        // $.ajax({
-        //     url: '/ajax/answer',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     data: {
-        //             "input_answer" :tosend ,
-        //             "remind_id":$('#remind_id').val() 
-        //           }
-        // })
-
-        // .done(function(response) {
-        //   console.log("正解response:"+response);
-        //   alert ('正解です！');
-        //   $('#js_remind_modal').fadeOut();
-        //     return false;
-        // })
-
-        // .fail(function(response) {
-        //   console.log("不正解response:"+response);
-        //   alert ('不正解です。もう一度答えを記入してください。')
-        // });
-    // })
-// });
 </script>
     
 </head>
@@ -163,10 +162,22 @@ $.ajax({
           
           <!--検索-->
           <li class="nav-item">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="search">
-              <span class="input-group-btn"><button type="button" class="btn btn-secondary form-control"><i class="fas fa-search"></i></button>
-            </div>
+            <form action="{{ action('CategoryController@search') }}" method="get">
+              <div class="input-group">
+                
+                <!--検索フォーム-->
+                  <input type="text" class="form-control" name="cond_title" placeholder="search">
+                
+                <!--ボタン-->
+                  
+                  <span class="input-group-btn">
+                  {{ csrf_field() }}
+                  <button type="submit" class="btn btn-secondary form-control">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  
+              </div> 
+           </form>
           </li> 
        
        
@@ -211,8 +222,7 @@ $.ajax({
       <div id="js_remind_modal" class="modal">
        <div class="modal__bg js-remind-modal-close"></div> <!--影-->
           <div class="modal__content">
-          <!--id-->
-            <input type="hidden" id="remind_id" value="">
+
 <!--ヒントを表示する-->
           <div id="hide_show_hint" style="font-size: 60%;" class="text-muted text-right">
             <a id="show_hint"><i class="far fa-lightbulb"></i></a>
@@ -234,10 +244,17 @@ $.ajax({
           <h5>
             <span style="border-bottom: solid 5px powderblue;">解答</span>
           </h5>
+          
           <div id="hide_by_giveup">
-            <label class="m-0" style="font-size: 80%;">答えを入力してください</label>
-              <input type="form-control" id="remind_answer"><br>
-              <button type="submit" class="btn-border mt-2" id="remind_submit">提出！</button>
+            <form name="resultform" action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
+            
+              <input type="hidden" name="id" id="hidden_remind_id" value="">
+              <input type="text" class="form-control" id="remind_answer" placeholder="答えを入力してください"><br>
+
+              {{ csrf_field() }}
+              <button type="button" class="btn-border mt-1" id="remind_submit">提出！</button>
+              
+            </form>
           </div>
           
             <p id="show_answer"></p>

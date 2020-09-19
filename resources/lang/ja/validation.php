@@ -146,8 +146,8 @@ return [
     */
 
     'attributes' => [
-      'name' => 'カテゴリー名'
-      'question' => '問題'
+      'name' => 'カテゴリー名',
+      'question' => '問題',
     ],
 
 ];

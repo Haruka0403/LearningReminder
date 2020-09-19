@@ -6,49 +6,61 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-   
-  <h2 class="col-md-9">検索結果</h2>
-  
-   <div class="col-md-8">
-    <div class="card">
-  
-  <!--一致した検索結果のカテゴリーを選択表示するコードを書く。テキスト１５参照-->
-     <div class="card-header">
-      <div class="row">
-       <h4 class="mb-0">カテゴリー名 </h4>
-   
-  <!--移動（javascriptでポップアップが出てくる仕様にしてから編集画面へ移動-->
-  <!--     <div class="offset-md-1 text-muted">-->
-  <!--      <a class="text-muted" href="{{ action('ArchiveController@edit') }}">-->
-  <!--      <i class="fas fa-file-export"></i></a>&ensp;移動-->
-  <!--     </div>-->
-  <!--消去-->
-  <!--    <div class="offset-md-1 text-muted">-->
-  <!--     <i class="far fa-trash-alt"></i>&ensp;消去-->
-  <!--    </div>-->
-      
-      
-    </div>
-   </div>
-   
-  
-  
-    <div class="card-body">
-     <div class="row">
-     
-     <a class="text-secondary" href="">
-      <h5>Qestion</h5>
-      <p>問題文が表示される</p>
-      <h5>Answer</h5>
-      <p>解答文が表示される</p>
-      </a>
-      
-     </div>
-   </div>
-   
-   </div>
-  </div>
     
+    <h2 class="col-md-8 mb-3">【{{$cond_title}}】の検索結果一覧</h2>
+
+
+  <div class="col-md-6">
+    
+   @foreach($reminds as $remind)    
+    <div class="card mb-3">
+      
+  <!--id(hidden)-->
+    <input type="hidden" name="id" value="{{$remind->id}}">
+    <input type="hidden" name="category_id" value="{{--$remind->category_id--}}">
+  
+  <!--card-hedder-->
+    <div class="card-header">
+      @php
+      $category_name = $category->where('id' , $remind->category_id)->first('name');
+      $str_category_name = (string)$category_name;
+      @endphp
+      <input type="hidden" value="{{$category->id}}">
+      <h4 class="mb-0">{{ $str_category_name }}</h4>
+      
+      <!--<h4 class="mb-0">{{$category_name}}</h4>-->
+    </div>
+   
+  <!--card-body-->
+    <div class="card-body pb-0">
+  <!--Question-->
+     <h5>
+      <span style="border-bottom: solid 5px powderblue;">Question</span>
+     </h5>
+     <p>{{\Str::limit ($remind->question), 100}}</p>
+
+  <!--Answer-->
+     <h5>
+      <span style="border-bottom: solid 5px powderblue;">Answer</span>
+     </h5>
+     <p class="mb-0">{{\Str::limit ($remind->answer), 100}}</p>
+    </div>
+    
+  <!--詳細画面移動ボタン-->
+     <div class="text-right text-muted mr-3 mb-2" style="font-size: 80%;">
+       詳細
+        <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
+          <i class="fas fa-angle-double-right text-muted"></i>
+        </a>
+     </div>
+     
+    </div>
+     @endforeach
+     
   </div>
+
 </div>
+</div>
+
+
 @endsection

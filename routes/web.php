@@ -27,11 +27,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/reminder','CategoryController@remind')->name('reminder');
     Route::post('/update', 'CategoryController@update');
     Route::get('/delete', 'CategoryController@delete');
-    
+    Route::post('/result', 'CategoryController@result');
     Route::get('/search','CategoryController@search');
-    Route::get('/archive','CategoryController@archive');
 
-    
     
 // リマインドコントローラ
     Route::get('reminder/create','RemindController@add');
@@ -45,4 +43,3 @@ Route::group(['middleware' => 'auth'], function() {
 
 // ajax
 Route::get('/ajax', 'CategoryController@ajax');
-// Route::any('/ajax/answer', 'CategoryController@ajaxAnswer');

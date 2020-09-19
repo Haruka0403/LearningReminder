@@ -94,6 +94,38 @@ class CategoryController extends Controller
         return view('reminder.index',['categories' => $categories , 'reminds' => $reminds]);
     }
     
+    public function search (Request $request)
+    {
+      $cond_title = $request->cond_title;
+      
+      if ($cond_title != '') {
+        $reminds = Remind::where('question', 'like', '%'.$cond_title.'%')
+        ->orWhere('answer', 'like', '%'.$cond_title.'%')
+        ->orWhere('hint', 'like', '%'.$cond_title.'%')
+        ->orWhere('comment', 'like', '%'.$cond_title.'%')
+        ->get();
+        // dd($reminds);
+
+ // コントローラでcategory_nameを取得する方法
+      //   $category_id = Remind::where('question', 'like', '%'.$cond_title.'%')
+      //   ->orWhere('answer', 'like', '%'.$cond_title.'%')
+      //   ->orWhere('hint', 'like', '%'.$cond_title.'%')
+      //   ->orWhere('comment', 'like', '%'.$cond_title.'%')
+      //   ->get('category_id');        
+      //   // dd($category_id);
+        
+      //   $category_name = Category::where('id' , $category_id)->get();
+      //   dd($category_name);
+      // }
+      // return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title , 'category_name'=>$category_name]);
+      
+      
+//view側で 取得する方法
+        $category = new Category;
+      }
+      return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title , 'category' =>$category ]);
+    }
+    
     public function ajax (Request $request)
     {
     // 実装できたらこっちに変更
@@ -108,21 +140,9 @@ class CategoryController extends Controller
         return $remind;
     }
     
-    // public function ajaxAnswer (Request $request)
-    // {
-    //   $remind_id = $request->remind_id;
-    //   $input_answer = $request->input_answer;
-    //   // \Debugbar::info($remind_answer);
-      
-    //   $remind = Remind::find($remind_id);
-     
-    //   echo("サーバー受信回答:" . $_POST['input_answer']);
-      
-    //   if($remind->answer == $input_answer){
-    //     return $remind->answer;
-    //   }
-    //   else{
-    //     return $input_answer;
-    //   }
-    // } 
+    // 3.結果をresultテーブルに保存して　redirect back
+    public function result (Request $request)
+    {
+      return redirect()->back();
+    }
 }

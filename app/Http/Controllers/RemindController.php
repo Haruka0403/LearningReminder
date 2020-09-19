@@ -75,7 +75,8 @@ class RemindController extends Controller
       
       // Varidation
       $this->validate($request, Remind::$rules);
-      $this->validate($request, Schedule::$rules);
+// scheduleにvalidationかけるとなぜかremind_atに入力ができていないことになる(9/19)
+      // $this->validate($request, Schedule::$rules);
       
 //リマインドテーブル
       $remind = Remind::find($request->id);
