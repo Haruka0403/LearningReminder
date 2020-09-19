@@ -61,6 +61,7 @@ $.ajax({
     var hint = response[i].hint;
     // document.getElementById("remind_id").value = response[i].id;
     document.getElementById("hidden_remind_id").value = response[i].id;
+    document.getElementById("hidden_remind_id_giveup").value = response[i].id;
     document.getElementById("remind_question").textContent　= response[i].question;
     
     if(hint == null || ""){
@@ -97,7 +98,6 @@ $.ajax({
       // return erasemodal();
       
     // 1.htmlにidを送る ※for内に記入しないと送信できなかった為、上記63行目。
-    // document.getElementById("hidden_remind_id").value = response[i].id;
     	document.resultform.action="/result";
     	document.resultform.method="post";
     	document.resultform.submit();
@@ -129,12 +129,16 @@ $("#remind_modal_close").hide();
   return false;
   
 // 降参：モーダルをfadeOut
-  $(function(){
-  $(document).on('click','#remind_modal_close', function() {
-    alert('テスト');
-    return erasemodal();
-    });
-  });
+//   $(function(){
+//   $(document).on('click','#remind_modal_close', function() {
+//   //   alert('テスト');
+//   //   return erasemodal();
+  
+//   document.giveupform.action="/giveup";
+// 	document.giveupform.method="post";
+// 	document.giveupform.submit();
+// 	});
+// });
   
 }) //doneの閉じタグ
  
@@ -248,7 +252,7 @@ $("#remind_modal_close").hide();
           <div id="hide_by_giveup">
             <form name="resultform" action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
             
-              <input type="hidden" name="id" id="hidden_remind_id" value="">
+              <input type="text" name="id" id="hidden_remind_id" value="">
               <input type="text" class="form-control" id="remind_answer" placeholder="答えを入力してください"><br>
 
               {{ csrf_field() }}
@@ -257,8 +261,13 @@ $("#remind_modal_close").hide();
             </form>
           </div>
           
+          <form name="giveupform" action="{{action('CategoryController@giveup')}}" method="post" enctype="multipart/form-data">
             <p id="show_answer"></p>
-            <button type="button" class="btn-border mt-2" id="remind_modal_close">終了</button>
+            <input type="text" name="id" id="hidden_remind_id_giveup" value="">
+            {{ csrf_field() }}
+            <!--<button type="button" class="btn-border mt-2" id="remind_modal_close">終了</button>-->
+            <button type="submit" class="btn-border mt-2" id="remind_modal_close">終了</button>
+          </form>
           
         </div>
       </div>

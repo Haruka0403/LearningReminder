@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/update', 'CategoryController@update');
     Route::get('/delete', 'CategoryController@delete');
     Route::post('/result', 'CategoryController@result');
+    Route::post('/giveup', 'CategoryController@giveup');
     Route::get('/search','CategoryController@search');
 
     
