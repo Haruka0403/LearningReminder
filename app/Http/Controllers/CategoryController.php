@@ -137,38 +137,52 @@ class CategoryController extends Controller
         
     // テスト用
       $schedule = Schedule::where('remind_at' , '2020-09-21T10:30')->first();
-      $remind = Remind::where('id' , $schedule->remind_id)->get();
+      $remind = Remind::find($schedule->remind_id);
+      
+      $response = array();
+      $response['id'] = $remind->id;
+      $response['question'] = $remind->question;
+      $response['answer'] = $remind->answer;
+      $response['hint'] = $remind->hint;
+      $response['schedule_id'] = $schedule->id;
 
-        return $remind;
+        return $response;
+//質問： resultテーブルに結果を保存するために、scheduleのidを取得しなければならないので、このajaxでリマインドと一緒に取得することはできないのでしょうか？
+        // return ([response1 => $remind , response2 =>$schedule]);
     }
     
-    // 3.結果をresultテーブルに保存して　redirect back
+
     public function result (Request $request)
     {
-      // 1:ヒントを見ずに正解
-      // 2:ヒントを見て正解　 この数字をResultテーブルに保存する
+    // 1:ヒントを見ずに正解
+    // 2:ヒントを見て正解　 この数字のどちらかをResultテーブルに保存する
       
       $result = new Result;
-      
-      // schedule_id
-      $result->schedule_id=
-      
-      // result
-      if ($request->hint = null || ""){
-         
+    // schedule_id
+      $result->schedule_id = $request->schedule_id;
+    // result
+      if ($request->hint == "hasHint"){
+        $result->result = 2;
       }
       else{
-        
+        $result->result = 1;
       }
       
-      // dd($request->hint);
+      unset($request['_token']);
+      $result->save();
+      
       return redirect()->back();
     }
     
     public function giveup (Request $request)
     
     {
-      // 3:降参
+    // 3:降参
+      $result = new Result;
+      $result->schedule_id = $request->schedule_id;
+      $result->result = 3;
+      unset($request['_token']);
+      $result->save();
       return redirect()->back();
     }
 }
