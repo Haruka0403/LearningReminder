@@ -37,7 +37,7 @@ function erasemodal(){
 }
 
 $(function(){
-    // setInterval(update, 10000);
+    setInterval(update, 10000);
   });
   
 function update(){
@@ -64,15 +64,16 @@ $.ajax({
     document.getElementById("hidden_remind_id_giveup").value = response[i].id;
     document.getElementById("remind_question").textContent　= response[i].question;
     
-    if(hint == null || ""){
-      document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
-    }
-    else{
-      document.getElementById("remind_hint").textContent = "ヒント！" + hint;
-    }
+    // // ヒントを見るが押されてから値を渡したいので下に移動(95行目）
+    // if(hint == null || ""){
+    //   document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
+    // }
+    // else{
+    //   document.getElementById("remind_hint").textContent = "ヒント！" + hint;
+    // }
     
     document.getElementById("show_answer").textContent = "正解は" + answer + "でした!";
-  } //forの閉じタグ
+  // } //forの閉じタグ
 
 
 // モーダルfadeIn
@@ -83,26 +84,49 @@ $.ajax({
 //1.問題表示→2.ヒント
  $("#remind_hint").hide();
  
-  $('#show_hint').click('on', function(){
-    $('#hide_show_hint').hide();
-    $("#remind_hint").show();
-    
-    $("#hide_giveup").show();
+  // $('#show_hint').click('on', function(){
+  //   $('#hide_show_hint').hide();
+  //   $("#remind_hint").show();
+  //   $("#hide_giveup").show();
+  // });　変数を持たせる前
+  
+// 変数を持たせてみる↓
+  // function clickShowhint(){
+  
+    $('#show_hint').click('on', function(){
+      if(hint == null || ""){
+        document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
+      }
+      else{
+        document.getElementById("remind_hint").textContent = "ヒント！" + hint;
+        document.getElementById("hidden_hint").value = "2";
+      }
+      
+      $('#hide_show_hint').hide();
+      $("#remind_hint").show();
+      $("#hide_giveup").show();
   });
+  
+  // }; //function clickShowhintの閉じタグ
+  
+// clickShowhint();
+// console.log('clickShowhint'+ clickShowhint());
+
+// if(clickShowhint()){
+// document.getElementById("hint_clicked").value = 'ヒントクリックがコントローラに送られた！';
+// };
 
 // 答え提出（ajax使わないパターン)
   $('#remind_submit').click('on', function(){
     var toSend = $('#remind_answer').val();
     if(toSend == answer){
-      // alert('正解です！');
-      // return erasemodal();
-      
-    // 1.htmlにidを送る ※for内に記入しないと送信できなかった為、上記63行目。
+  // 1.htmlにidを送る ※for内に記入しないと送信できなかった為、上記63行目。
     	document.resultform.action="/result";
     	document.resultform.method="post";
     	document.resultform.submit();
-    	
+
     	 alert('正解です！');
+    	 // return erasemodal(); これ必要ないかも？
   }
     
     else{
@@ -127,7 +151,7 @@ $("#remind_modal_close").hide();
   $(js_remind_modal).fadeIn();
   modalon = true;
   return false;
-
+}//forの閉じタグ(お試し中)
 }) //doneの閉じタグ
  
   .fail(function() {
@@ -226,7 +250,7 @@ $("#remind_modal_close").hide();
             降参する
           </div>
 <!--hint-->
-          <p id="remind_hint"></p>
+<!--          <p id="remind_hint"></p>-->
 <!--question-->
           <h5>
             <span style="border-bottom: solid 5px powderblue;">問題</span>
@@ -240,7 +264,11 @@ $("#remind_modal_close").hide();
           <div id="hide_by_giveup">
             <form name="resultform" action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
             
-              <input type="text" name="id" id="hidden_remind_id" value="">
+              <input type="hidden" name="id" id="hidden_remind_id" value="">
+              <!--<input type="hidden" id='hint_clicked' name='hint' value="">-->
+            <!--hint-->
+              <p id="remind_hint"></p>
+              <input type="hidden" id="hidden_hint" name="hint" value="">
               <input type="text" class="form-control" id="remind_answer" placeholder="答えを入力してください"><br>
 
               {{ csrf_field() }}
@@ -251,7 +279,8 @@ $("#remind_modal_close").hide();
           
           <form action="{{action('CategoryController@giveup')}}" method="post" enctype="multipart/form-data">
             <p id="show_answer"></p>
-            <input type="text" name="id" id="hidden_remind_id_giveup" value="">
+            <input type="hidden" name="id" id="hidden_remind_id_giveup" value="">
+            
             {{ csrf_field() }}
             <!--<button type="button" class="btn-border mt-2" id="remind_modal_close">終了</button>-->
             <button type="submit" class="btn-border mt-2" id="remind_modal_close">終了</button>

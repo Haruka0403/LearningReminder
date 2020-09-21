@@ -12,6 +12,8 @@ use App\Remind;
 
 use App\Schedule;
 
+use App\Result;
+
 use Illuminate\Support\Facades\Auth;
 
 use Validator;
@@ -134,7 +136,7 @@ class CategoryController extends Controller
       // $remind = Remind::where('id' , $schedule->remind_id)->get();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-17T13:09')->first();
+      $schedule = Schedule::where('remind_at' , '2020-09-21T10:30')->first();
       $remind = Remind::where('id' , $schedule->remind_id)->get();
 
         return $remind;
@@ -143,11 +145,30 @@ class CategoryController extends Controller
     // 3.結果をresultテーブルに保存して　redirect back
     public function result (Request $request)
     {
+      // 1:ヒントを見ずに正解
+      // 2:ヒントを見て正解　 この数字をResultテーブルに保存する
+      
+      $result = new Result;
+      
+      // schedule_id
+      $result->schedule_id=
+      
+      // result
+      if ($request->hint = null || ""){
+         
+      }
+      else{
+        
+      }
+      
+      // dd($request->hint);
       return redirect()->back();
     }
     
     public function giveup (Request $request)
+    
     {
+      // 3:降参
       return redirect()->back();
     }
 }
