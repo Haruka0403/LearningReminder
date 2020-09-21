@@ -148,7 +148,6 @@ class CategoryController extends Controller
     
     public function giveup (Request $request)
     {
-      dd($request->id);
       return redirect()->back();
     }
 }

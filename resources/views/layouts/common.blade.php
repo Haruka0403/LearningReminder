@@ -37,7 +37,7 @@ function erasemodal(){
 }
 
 $(function(){
-    setInterval(update, 10000);
+    // setInterval(update, 10000);
   });
   
 function update(){
@@ -127,19 +127,7 @@ $("#remind_modal_close").hide();
   $(js_remind_modal).fadeIn();
   modalon = true;
   return false;
-  
-// 降参：モーダルをfadeOut
-//   $(function(){
-//   $(document).on('click','#remind_modal_close', function() {
-//   //   alert('テスト');
-//   //   return erasemodal();
-  
-//   document.giveupform.action="/giveup";
-// 	document.giveupform.method="post";
-// 	document.giveupform.submit();
-// 	});
-// });
-  
+
 }) //doneの閉じタグ
  
   .fail(function() {
@@ -261,7 +249,7 @@ $("#remind_modal_close").hide();
             </form>
           </div>
           
-          <form name="giveupform" action="{{action('CategoryController@giveup')}}" method="post" enctype="multipart/form-data">
+          <form action="{{action('CategoryController@giveup')}}" method="post" enctype="multipart/form-data">
             <p id="show_answer"></p>
             <input type="text" name="id" id="hidden_remind_id_giveup" value="">
             {{ csrf_field() }}

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-  
    //varidation
     protected $guarded = array('id');
 
@@ -18,5 +17,11 @@ class Schedule extends Model
     public function remind(){
     return $this ->belongsTo('App\Remind');
     } 
-  
+    
+  // 従テーブル(1(schedule) to 1(result))
+    public function result()
+    {
+      return $this->hasOne('App\Result');
+
+    }
 }

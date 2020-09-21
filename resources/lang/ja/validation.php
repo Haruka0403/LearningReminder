@@ -148,6 +148,7 @@ return [
     'attributes' => [
       'name' => 'カテゴリー名',
       'question' => '問題',
+      'answer' => '解答',
     ],
 
 ];

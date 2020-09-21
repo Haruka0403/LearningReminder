@@ -15,10 +15,8 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('function_id');
+            $table->bigInteger('schedule_id');
             $table->integer('result');
-            
-            
             $table->timestamps();
         });
     }

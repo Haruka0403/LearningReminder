@@ -17,7 +17,6 @@ class CreateSchedulesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('remind_id');
             $table->string('remind_at');
-            
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('functions');
+        Schema::dropIfExists('schedules');
     }
 }
