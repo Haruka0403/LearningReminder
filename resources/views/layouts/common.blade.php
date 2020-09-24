@@ -161,8 +161,9 @@ $("#remind_modal_close").hide();
     // console.log(response);
 });
 }
+
 </script>
-    
+
 </head>
 
     
@@ -294,11 +295,47 @@ $("#remind_modal_close").hide();
         </div>
       </div>
 <!--ここまで-->
+
+<!--結果モーダル-->
+@php
+if (Session::has('withoutHint')) {
+  $result_modal = session('withoutHint');
+} else {
+  $result_modal = null;
+}
+@endphp
+
+ <!--onloadで表示するモーダル(なぜか表示できない...)-->
+ <div id="result_modal" class="modal js-modal">
+  <div class="modal__bg js-modal-close"></div>
+  
+  <div class="modal__content">
+   <p>てすと</p>
+  </div>
+  
+ </div>
+<!--ここまで-->
     
     <!--common_jquery.js-->
     <script src="{{ mix('js/common_jquery.js') }}"></script>
     
 </body>
 </html>
+
+@if(isset($result_modal))
+<script>
+  // window.onload = function() {
+  //   var result = '{{$result_modal}}';
+  //     console.log('result');
+  //     if (result != null && result != '') {
+  //       var result_modal = document.getElementById(result_modal);
+  //       $(result_modal).fadeIn();
+  //       return false;
+  //     }
+  alert('テスト');
+</script>
+@endif
+
+
 @yield('js')
 
