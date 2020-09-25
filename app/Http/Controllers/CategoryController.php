@@ -135,7 +135,7 @@ class CategoryController extends Controller
       // $schedule = Schedule::where('remind_at' , $today)->first();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-23T20:35')->first();
+      $schedule = Schedule::where('remind_at' , '2020-09-21T10:30')->first();
       
       $remind = Remind::find($schedule->remind_id);
       
@@ -169,16 +169,17 @@ class CategoryController extends Controller
       
 //↓リマインドが最終だった場合、オンロードで結果を表示する過程↓
   // 1.スケジュールテーブルへアクセスし、$request->id(remind_id)と一致するidとremind_atを全て取得
-    $schedule_id = Schedule::where('remind_id' , $request->id)->get('id');
+    $schedules_id = Schedule::where('remind_id' , $request->id)->get('id');
     $reminds_at = Schedule::where('remind_id' , $request->id)->get('remind_at');
-    // dd($schedule_id);
+    // dd($schedules_id);
     // dd($reminds_at);
     
   // 2.今日の日付を取得
     $today = date("Y-m-d\TH:i");
     // dd($today);
 
-  // 3.1で受け取った日付の中に、2(今日)より過去のものしか無ければ、resultへアクセスし、1で取得したremind_idと紐づくresultを取得
+  // 3.1で受け取った日付の中に、未来があれば、redirect->back、
+      //今日より過去のものしか無ければ、resultへアクセスし、1で取得したremind_idと紐づくschedule_idを持っているresultを取得
         foreach ($reminds_at as $remind_at){
           // dd($remind_at->remind_at);
           $remindDate = $remind_at->remind_at >= $today;
@@ -186,47 +187,42 @@ class CategoryController extends Controller
             break;
           }
         };
-        //false(0)なら全部過去、true(１)なら未来有りで表示される(テストしたので、コードの理屈ははあっていると思う）
-        // しかし、過去があってもtrueしか出て来ない
-        dd($remindDate);
+        //false(0)なら全部過去、true(1)なら未来有りで表示される
+        // dd($remindDate);
         
         if($remindDate){
-          echo '未来有り';
-          // return redirect()->back();
+          return redirect()->back();
         }
         else{
-          echo '過去だけ';
-          // $results = Result::where('schedule_id' , $schedule_id)->get('result');
-          // dd($results);
-        }
-      
-  // // 4.viewに３通りの結果を数えた数を変数に入れて送る。(array_count_valuesを使いたかったができないので、whereで実装していく)
-  //   //   $withoutHint = count($result->where('result' , 1)->get());
-  //   //   $withtHint = count($result->where('result' , 2)->get());
-      
-  //   //   return redirect()->back()->with(['withoutHint' => $withoutHint , 'withHint' => $withtHint]);
-  //   }
-  //   else{
-  //     return redirect()->back();
-  //   }
-  
-// 上記３番目の日付の過去確認のテスト　(やりたい事:remind_at[]の中に未来の日付が１つ以上あるのか、それとも全くないかで条件分岐)
-    // 1.$remind_atの中身それぞれに今日より未来のものがあるか確認
-    // $reminds_at = [ '2020-09-22T22:16' , '2020-09-22T25:16' , '2020-09-20T25:16' , '2020-09-20T25:16'];
-    // foreach ($reminds_at as $remind_at){
-    //   $remindDate = $remind_at >= $today;
-    // };
+          foreach($schedules_id as $schedule_id){
+            $results = Result::where('schedule_id' , $schedule_id->id)->get();
+// 質問:この$resultsにはschedule_idが34しか抽出されていませんが、本来は２つ(34と35)あります。参照：dd($schedules_id);
+// foreach内で回しているから１つしか表示されていないだけで、ちゃんと二つとも$schedule_id->idとして認識されているのでしょうか？
+            // dd($schedule_id->id);
+            // dd($results);
+            // var_dump($results);
+          }; //foreach閉じタグ 
+          // dd($results); //←紐づいたresultだけ取得できている
+          
+          
+  // 4.3で取得した、リマインド及びスケジュールに紐づくresltの2つの結果(1:ヒント無し、2:ヒント付き)をそれぞれ数えた数を変数に入れてviewへ送る。
+          // foreach($results as $result){
+            // dd($results); //←$resultsの中身は、resltsテーブルの中身全てになっている(remid_idとschedule_idに紐づいたものでなくてはならない)→なった！
+            $withoutHint = count($results->where('result' , 1)->all()); //←該当の結果だけ取得できた！(getがダメだった。allを使用する)
+          // }; //foreach閉じタグ
+    // schedule_idが34と35で、且つresultの結果が1のものが出てきて欲しい
+          echo $withoutHint;
+          // echo count($test);
+          
+            
+  //         $withoutHint = count($results->where('result' , 1)->get('result'));
+  //         $withtHint = count($results->where('result' , 2));
+  //         dd($withoutHint);
+         
+          // return redirect()->back()->with(['withoutHint' => $withoutHint , 'withHint' => $withtHint]);
+          // }; //foreach閉じタグ 
 
-//false(0)なら全部過去、true(１)なら未来有りで表示される   
-    // dd($remindDate); 
-    
-    // if($remindDate){
-    //   echo 'まだremind_at[]に未来の時間があるのでredirect->back';
-    // }
-    // else{
-    //   echo 'remind_at[]は過去しかない状態。つまりさっきのリマインドが最終なので、結果をviewに渡す';
-    // }
-    
+        }
   }
     
     public function giveup (Request $request)
