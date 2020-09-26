@@ -168,6 +168,15 @@ $("#remind_modal_close").hide();
 
     
 <body>
+@php
+if(isset($results)){
+echo '$resultsあり';
+}
+else{
+echo '$results無し';
+}
+@endphp
+
 
      <nav class="navbar navbar-expand shadow-sm">
       <div class="container">

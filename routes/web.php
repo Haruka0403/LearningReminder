@@ -22,7 +22,7 @@ Auth::routes();
 
 // カテゴリーコントローラ
 Route::group(['middleware' => 'auth'], function() {    
-    Route::get('/', 'CategoryController@top');
+    Route::get('/', 'CategoryController@top')->name('result');
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind')->name('reminder');
     Route::post('/update', 'CategoryController@update');

@@ -135,7 +135,7 @@ class CategoryController extends Controller
       // $schedule = Schedule::where('remind_at' , $today)->first();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-21T10:30')->first();
+      $schedule = Schedule::where('remind_at' , '2020-09-26T10:00')->first();
       
       $remind = Remind::find($schedule->remind_id);
       
@@ -171,7 +171,7 @@ class CategoryController extends Controller
   // 1.スケジュールテーブルへアクセスし、$request->id(remind_id)と一致するidとremind_atを全て取得
     $schedules_id = Schedule::where('remind_id' , $request->id)->get('id');
     $reminds_at = Schedule::where('remind_id' , $request->id)->get('remind_at');
-    // dd($schedules_id);
+    // dd($schedules_id->toArray());
     // dd($reminds_at);
     
   // 2.今日の日付を取得
@@ -186,7 +186,7 @@ class CategoryController extends Controller
           if($remindDate){
             break;
           }
-        };
+        };//foreach閉じタグ
         //false(0)なら全部過去、true(1)なら未来有りで表示される
         // dd($remindDate);
         
@@ -194,34 +194,30 @@ class CategoryController extends Controller
           return redirect()->back();
         }
         else{
+// 質問:以下の部分、remind_idに紐づく全てのschedule_idを保持するresult取得できていないといけないが、collectionの型のままだったら１番最後のschedule_idしか反映されなかった為配列に直した。
+          $results = [0, 0, 0, 0];
           foreach($schedules_id as $schedule_id){
-            $results = Result::where('schedule_id' , $schedule_id->id)->get();
-// 質問:この$resultsにはschedule_idが34しか抽出されていませんが、本来は２つ(34と35)あります。参照：dd($schedules_id);
-// foreach内で回しているから１つしか表示されていないだけで、ちゃんと二つとも$schedule_id->idとして認識されているのでしょうか？
-            // dd($schedule_id->id);
-            // dd($results);
-            // var_dump($results);
-          }; //foreach閉じタグ 
-          // dd($results); //←紐づいたresultだけ取得できている
-          
+            $obj = Result::where('schedule_id' , $schedule_id->id)->first();
+            // dd($results[$result->result]);
+            if($obj != null){
+              $num = $obj->result;
+              $results[$num]++;
+            }
+            // dd($schedule_id->id); //←collectionの場合:id:38
+            // dd($results); //←collectionの場合:データなし
+          }; //foreach閉じタグ
+          // dd($results); //←collectionの場合:id:40のみのresult /  配列の場合:3次元配列で全て取得できた
           
   // 4.3で取得した、リマインド及びスケジュールに紐づくresltの2つの結果(1:ヒント無し、2:ヒント付き)をそれぞれ数えた数を変数に入れてviewへ送る。
-          // foreach($results as $result){
-            // dd($results); //←$resultsの中身は、resltsテーブルの中身全てになっている(remid_idとschedule_idに紐づいたものでなくてはならない)→なった！
-            $withoutHint = count($results->where('result' , 1)->all()); //←該当の結果だけ取得できた！(getがダメだった。allを使用する)
-          // }; //foreach閉じタグ
-    // schedule_idが34と35で、且つresultの結果が1のものが出てきて欲しい
-          echo $withoutHint;
-          // echo count($test);
+          //1.
+          // return redirect()->back()->withInput()->with('results' , $results);
           
-            
-  //         $withoutHint = count($results->where('result' , 1)->get('result'));
-  //         $withtHint = count($results->where('result' , 2));
-  //         dd($withoutHint);
-         
-          // return redirect()->back()->with(['withoutHint' => $withoutHint , 'withHint' => $withtHint]);
-          // }; //foreach閉じタグ 
-
+          //2.
+          // $previousUrl = app('url')->previous();
+          // return redirect()->to($previousUrl.'?'. http_build_query(['results'=>$results]))->withInput();
+          
+          //3.
+          return redirect(route('result', ['results' => $results]));
         }
   }
     
