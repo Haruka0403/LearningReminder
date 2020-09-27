@@ -22,7 +22,7 @@ class CategoryController extends Controller
 {
     public function top (Request $request)
     {
-        $items = Category::all();
+        $items = Auth::user()->categories;
         $reminds = new Remind;
         return view('category.category',['items' => $items , 'reminds' => $reminds]);
     }
@@ -108,24 +108,8 @@ class CategoryController extends Controller
         ->get();
         // dd($reminds);
 
- // コントローラでcategory_nameを取得する方法
-      //   $category_id = Remind::where('question', 'like', '%'.$cond_title.'%')
-      //   ->orWhere('answer', 'like', '%'.$cond_title.'%')
-      //   ->orWhere('hint', 'like', '%'.$cond_title.'%')
-      //   ->orWhere('comment', 'like', '%'.$cond_title.'%')
-      //   ->get('category_id');        
-      //   // dd($category_id);
-        
-      //   $category_name = Category::where('id' , $category_id)->get();
-      //   dd($category_name);
-      // }
-      // return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title , 'category_name'=>$category_name]);
-      
-      
-//view側で 取得する方法
-        $category = new Category;
       }
-      return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title , 'category' =>$category ]);
+      return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title ]);
     }
     
     public function ajax (Request $request)
@@ -135,7 +119,7 @@ class CategoryController extends Controller
       // $schedule = Schedule::where('remind_at' , $today)->first();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-26T10:00')->first();
+      $schedule = Schedule::where('remind_at' , '2020-09-24T22:16')->first();
       
       $remind = Remind::find($schedule->remind_id);
       
@@ -171,7 +155,7 @@ class CategoryController extends Controller
   // 1.スケジュールテーブルへアクセスし、$request->id(remind_id)と一致するidとremind_atを全て取得
     $schedules_id = Schedule::where('remind_id' , $request->id)->get('id');
     $reminds_at = Schedule::where('remind_id' , $request->id)->get('remind_at');
-    // dd($schedules_id->toArray());
+    // dd($schedules_id);
     // dd($reminds_at);
     
   // 2.今日の日付を取得
@@ -194,7 +178,6 @@ class CategoryController extends Controller
           return redirect()->back();
         }
         else{
-// 質問:以下の部分、remind_idに紐づく全てのschedule_idを保持するresult取得できていないといけないが、collectionの型のままだったら１番最後のschedule_idしか反映されなかった為配列に直した。
           $results = [0, 0, 0, 0];
           foreach($schedules_id as $schedule_id){
             $obj = Result::where('schedule_id' , $schedule_id->id)->first();
@@ -203,21 +186,12 @@ class CategoryController extends Controller
               $num = $obj->result;
               $results[$num]++;
             }
-            // dd($schedule_id->id); //←collectionの場合:id:38
-            // dd($results); //←collectionの場合:データなし
+            // dd($schedule_id->id);
           }; //foreach閉じタグ
-          // dd($results); //←collectionの場合:id:40のみのresult /  配列の場合:3次元配列で全て取得できた
+          // dd($results); 
           
   // 4.3で取得した、リマインド及びスケジュールに紐づくresltの2つの結果(1:ヒント無し、2:ヒント付き)をそれぞれ数えた数を変数に入れてviewへ送る。
-          //1.
-          // return redirect()->back()->withInput()->with('results' , $results);
-          
-          //2.
-          // $previousUrl = app('url')->previous();
-          // return redirect()->to($previousUrl.'?'. http_build_query(['results'=>$results]))->withInput();
-          
-          //3.
-          return redirect(route('result', ['results' => $results]));
+          return view('category.result',['results' => $results]);
         }
   }
     

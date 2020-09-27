@@ -21,8 +21,9 @@ Auth::routes();
 
 
 // カテゴリーコントローラ
-Route::group(['middleware' => 'auth'], function() {    
-    Route::get('/', 'CategoryController@top')->name('result');
+Route::group(['middleware' => 'auth'], function() { 
+    Route::get('/home', 'CategoryController@top')->name('home');
+    Route::get('/', 'CategoryController@top');
     Route::post('/', 'CategoryController@create');
     Route::get('/reminder','CategoryController@remind')->name('reminder');
     Route::post('/update', 'CategoryController@update');

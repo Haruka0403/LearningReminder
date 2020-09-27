@@ -21,14 +21,7 @@
   
   <!--card-hedder-->
     <div class="card-header">
-      @php
-      $category_name = $category->where('id' , $remind->category_id)->first('name');
-      $str_category_name = (string)$category_name;
-      @endphp
-      <input type="hidden" value="{{$category->id}}">
-      <h4 class="mb-0">{{ $str_category_name }}</h4>
-      
-      <!--<h4 class="mb-0">{{$category_name}}</h4>-->
+      <h4 class="mb-0">{{ $remind->category->name }}</h4>
     </div>
    
   <!--card-body-->

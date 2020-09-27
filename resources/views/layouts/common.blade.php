@@ -37,7 +37,7 @@ function erasemodal(){
 }
 
 $(function(){
-    setInterval(update, 10000);
+    // setInterval(update, 10000);
   });
   
 function update(){
@@ -168,16 +168,6 @@ $("#remind_modal_close").hide();
 
     
 <body>
-@php
-if(isset($results)){
-echo '$resultsあり';
-}
-else{
-echo '$results無し';
-}
-@endphp
-
-
      <nav class="navbar navbar-expand shadow-sm">
       <div class="container">
              
@@ -306,15 +296,10 @@ echo '$results無し';
 <!--ここまで-->
 
 <!--結果モーダル-->
-@php
-if (Session::has('withoutHint')) {
-  $result_modal = session('withoutHint');
-} else {
-  $result_modal = null;
-}
-@endphp
 
- <!--onloadで表示するモーダル(なぜか表示できない...)-->
+
+
+ <!--onloadで表示するモーダル-->
  <div id="result_modal" class="modal js-modal">
   <div class="modal__bg js-modal-close"></div>
   
