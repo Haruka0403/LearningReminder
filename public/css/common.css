@@ -135,3 +135,12 @@ table.row td {
   display: none;
 }
 
+.result_box {
+  border: 6px double powderblue;
+  background: #fff;
+  padding: 10px;
+  max-width: 500px;
+  margin: auto;
+  display: block;
+}
+

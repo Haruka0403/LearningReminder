@@ -28,16 +28,14 @@
 <!--通知モーダルjs-->
 <script>
 var modalon=false;
-
 function erasemodal(){
   document.getElementById('remind_answer').value = "";
   $('#js_remind_modal').fadeOut();
   modalon = false;
   return false;
 }
-
 $(function(){
-    // setInterval(update, 10000);
+    setInterval(update, 10000);
   });
   
 function update(){
@@ -52,32 +50,19 @@ $.ajax({
   data: {},
   dataType: 'json' 
     })
-
  .done(function(response) {
    console.log(response);
    
-  // for(var i=0; i<Object.keys(response).length; i++){
     var answer = response['answer'];
     var hint = response['hint'];
-    // document.getElementById("remind_id").value = response[i].id;
-    document.getElementById("hidden_remind_id").value = response['id'];
-    document.getElementById("hidden_remind_id_giveup").value = response['id'];
+    
     document.getElementById("remind_question").textContent　= response['question'];
+    document.getElementById("hidden_remind_id").value = response['id'];
     document.getElementById("hidden_schedule_id").value　= response['schedule_id'];
     document.getElementById("hidden_schedule_id_giveup").value　= response['schedule_id'];
-    
-    
-    // // ヒントを見るが押されてから値を渡したいので下に移動(95行目）
-    // if(hint == null || ""){
-    //   document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
-    // }
-    // else{
-    //   document.getElementById("remind_hint").textContent = "ヒント！" + hint;
-    // }
+    document.getElementById("hidden_remind_id_giveup").value = response['id'];
     
     document.getElementById("show_answer").textContent = "正解は" + answer + "でした!";
-  // } //forの閉じタグ
-
 
 // モーダルfadeIn
   var js_remind_modal = document.getElementById('js_remind_modal');
@@ -87,15 +72,6 @@ $.ajax({
 //1.問題表示→2.ヒント
  $("#remind_hint").hide();
  
-  // $('#show_hint').click('on', function(){
-  //   $('#hide_show_hint').hide();
-  //   $("#remind_hint").show();
-  //   $("#hide_giveup").show();
-  // });　変数を持たせる前
-  
-// 変数を持たせてみる↓
-  // function clickShowhint(){
-  
     $('#show_hint').click('on', function(){
       if(hint == null || ""){
         document.getElementById("remind_hint").textContent = "ヒントが登録されていません";
@@ -109,15 +85,6 @@ $.ajax({
       $("#remind_hint").show();
       $("#hide_giveup").show();
   });
-  
-  // }; //function clickShowhintの閉じタグ
-  
-// clickShowhint();
-// console.log('clickShowhint'+ clickShowhint());
-
-// if(clickShowhint()){
-// document.getElementById("hint_clicked").value = 'ヒントクリックがコントローラに送られた！';
-// };
 
 // 答え提出（ajax使わないパターン)
   $('#remind_submit').click('on', function(){
@@ -127,11 +94,8 @@ $.ajax({
     	document.resultform.action="/result";
     	document.resultform.method="post";
     	document.resultform.submit();
-
     	 alert('正解です！');
-    	 // return erasemodal(); これ必要ないかも？
-  }
-    
+      }
     else{
      alert('不正解です。もう一度答えを記入してください。');
     }
@@ -148,22 +112,33 @@ $("#remind_modal_close").hide();
     $('#hide_by_giveup').hide();
     $("#show_answer").show();
     $("#remind_modal_close").show();
+    document.getElementById("hidden_giveup").value = "hasGivup";
     });
   });
+ 
+  
+  // 降参提出
+  // $(function(){
+  // $(document).on('click','#remind_modal_close', function() {
+	 // document.resultform.action="/result";
+  // 	document.resultform.method="post";
+  // 	document.resultform.submit();
+  //   });
+  // });
+  
+  
   
   $(js_remind_modal).fadeIn();
   modalon = true;
   return false;
-// }//forの閉じタグ(お試し中)
+
 }) //doneの閉じタグ
  
   .fail(function() {
     // console.log(response);
 });
 }
-
 </script>
-
 </head>
 
     
@@ -267,7 +242,7 @@ $("#remind_modal_close").hide();
           <div id="hide_by_giveup">
             <form name="resultform" action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
             
-              <input type="hidden" name="id" id="hidden_remind_id" value="">
+              <input type="hidden" id="hidden_remind_id" name="id" value="">
               <!--<input type="hidden" id='hint_clicked' name='hint' value="">-->
             <!--hint-->
               <p id="remind_hint"></p>
@@ -281,9 +256,10 @@ $("#remind_modal_close").hide();
             </form>
           </div>
           
-          <form action="{{action('CategoryController@giveup')}}" method="post" enctype="multipart/form-data">
+          <form action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
             <p id="show_answer"></p>
-            <input type="hidden" name="id" id="hidden_remind_id_giveup" value="">
+            <input type="hidden" id="hidden_giveup" name="giveup" value="">
+            <input type="hidden" id="hidden_remind_id_giveup" name="id" value="">
             <input type="hidden" id='hidden_schedule_id_giveup' name="schedule_id" value="">
             
             {{ csrf_field() }}
@@ -332,4 +308,3 @@ $("#remind_modal_close").hide();
 
 
 @yield('js')
-

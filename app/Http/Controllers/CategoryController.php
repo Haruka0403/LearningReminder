@@ -115,11 +115,11 @@ class CategoryController extends Controller
     public function ajax (Request $request)
     {
     // 実装できたらこっちに変更
-      // $today = date("Y-m-d\TH:i");
-      // $schedule = Schedule::where('remind_at' , $today)->first();
+      $today = date("Y-m-d\TH:i");
+      $schedule = Schedule::where('remind_at' , $today)->first();
         
     // テスト用
-      $schedule = Schedule::where('remind_at' , '2020-09-24T22:16')->first();
+      // $schedule = Schedule::where('remind_at' , '2020-09-24T22:16')->first();
       
       $remind = Remind::find($schedule->remind_id);
       
@@ -137,13 +137,21 @@ class CategoryController extends Controller
     public function result (Request $request)
     {
     // 1:ヒントを見ずに正解
-    // 2:ヒントを見て正解　 この数字のどちらかをResultテーブルに保存する
+    // 2:ヒントを見て正解　
+    // 3:降参
+    // dd($request->schedule_id);
+    
       $result = new Result;
+      
     // schedule_id
       $result->schedule_id = $request->schedule_id;
+      
     // result
       if ($request->hint == "hasHint"){
         $result->result = 2;
+      }
+      elseif($request->giveup == "hasGivup"){
+         $result->result = 3;
       }
       else{
         $result->result = 1;
@@ -155,6 +163,7 @@ class CategoryController extends Controller
   // 1.スケジュールテーブルへアクセスし、$request->id(remind_id)と一致するidとremind_atを全て取得
     $schedules_id = Schedule::where('remind_id' , $request->id)->get('id');
     $reminds_at = Schedule::where('remind_id' , $request->id)->get('remind_at');
+    
     // dd($schedules_id);
     // dd($reminds_at);
     
@@ -170,7 +179,7 @@ class CategoryController extends Controller
           if($remindDate){
             break;
           }
-        };//foreach閉じタグ
+        };
         //false(0)なら全部過去、true(1)なら未来有りで表示される
         // dd($remindDate);
         
@@ -182,28 +191,32 @@ class CategoryController extends Controller
           foreach($schedules_id as $schedule_id){
             $obj = Result::where('schedule_id' , $schedule_id->id)->first();
             // dd($results[$result->result]);
+            // dd($obj);
             if($obj != null){
               $num = $obj->result;
               $results[$num]++;
             }
             // dd($schedule_id->id);
-          }; //foreach閉じタグ
+          }; 
           // dd($results); 
           
+          // リマインドの内容もviewに送る
+          $remind = Remind::find($request->id);
+          
   // 4.3で取得した、リマインド及びスケジュールに紐づくresltの2つの結果(1:ヒント無し、2:ヒント付き)をそれぞれ数えた数を変数に入れてviewへ送る。
-          return view('category.result',['results' => $results]);
+          return view('category.result',['results' => $results , 'remind' => $remind]);
         }
   }
     
-    public function giveup (Request $request)
+    // public function giveup (Request $request)
     
-    {
-    // 3:降参
-      $result = new Result;
-      $result->schedule_id = $request->schedule_id;
-      $result->result = 3;
-      unset($request['_token']);
-      $result->save();
-      return redirect()->back();
-    }
+    // {
+    // // 3:降参
+    //   $result = new Result;
+    //   $result->schedule_id = $request->schedule_id;
+    //   $result->result = 3;
+    //   unset($request['_token']);
+    //   $result->save();
+    //   return redirect()->back();
+    // }
 }
