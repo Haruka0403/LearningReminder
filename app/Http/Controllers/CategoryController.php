@@ -111,9 +111,8 @@ class CategoryController extends Controller
       $schedule = Schedule::where('remind_at' , $today)->first();
         
     // テスト用
-      // $schedule = Schedule::where('remind_at' , '2020-09-24T22:16')->first();
+      // $schedule = Schedule::where('remind_at' , '2020-09-30T13:48')->first();
 
-//1分以内に何回も同じリマインダーが出てくるを解決！しかしresultへ行かなくなったー泣
       if(Result::where('schedule_id' , $schedule->id)->first()){
         return redirect()->back();
       }
@@ -163,7 +162,7 @@ class CategoryController extends Controller
       $reminds_at = Schedule::where('remind_id' , $request->id)->get('remind_at');
     
     // dd($schedules_id);
-    // dd($reminds_at);
+    // dd($reminds_at->toArray());
     
     // 2.今日の日付を取得
       $today = date("Y-m-d\TH:i");
@@ -172,13 +171,11 @@ class CategoryController extends Controller
     // 3. 1で受け取ったremind_atの日付が未来なのか過去か確認。
       foreach ($reminds_at as $remind_at){
         // dd($remind_at->remind_at);
-        $remindDate = $remind_at->remind_at >= $today;
+        $remindDate = $remind_at->remind_at > $today;
         if($remindDate){
           break;
         }
       };
-      //以下確認用。false(0)なら全部過去、true(1)なら未来有りで表示される
-      // dd($remindDate);
     
     // 4.未来と過去で条件分岐。未来があれば、redirect->back、
     // 過去のものしか無ければ、resultへアクセスし、1で取得したremind_idと紐づくschedule_idを持っているresultを取得    
