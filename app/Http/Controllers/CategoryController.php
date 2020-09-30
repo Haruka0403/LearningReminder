@@ -112,7 +112,13 @@ class CategoryController extends Controller
         
     // テスト用
       // $schedule = Schedule::where('remind_at' , '2020-09-24T22:16')->first();
+
+//1分以内に何回も同じリマインダーが出てくるを解決！しかしresultへ行かなくなったー泣
+      if(Result::where('schedule_id' , $schedule->id)->first()){
+        return redirect()->back();
+      }
       
+      else{
       $remind = Remind::find($schedule->remind_id);
       
       $response = array();
@@ -123,6 +129,7 @@ class CategoryController extends Controller
       $response['schedule_id'] = $schedule->id;
 
         return $response;
+      }
     }
     
 

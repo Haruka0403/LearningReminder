@@ -30,13 +30,16 @@
     
 <!--通知モーダルjs-->
 <script>
-var modalon=false;
+var modalon = false;
+
+// モーダルが表示されている間は、次のモーダルが来ても表示しない
 function erasemodal(){
   document.getElementById('remind_answer').value = "";
   $('#js_remind_modal').fadeOut();
   modalon = false;
   return false;
 }
+
 $(function(){
     setInterval(update, 10000);
   });
