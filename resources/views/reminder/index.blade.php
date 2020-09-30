@@ -29,27 +29,26 @@
         リマインダーが登録されていません
       </div>
 
+ <!--リマインダー中身-->
       @else
-  <!--リマインダー中身-->
       @foreach($reminds as $remind)
        
-  <!--リマインドid:新規作成より継承したデータ表示用(R@creat → C@remind)-->
+  <!--リマインドid及びカテゴリーid-->
       <input id="r_id" type="hidden" name="id" value="{{$remind->id}}">
-  <!--category_id-->
       <input type="hidden" name="category_id" value="{{$remind->category_id}}">
-    
-      <div class="card-body pb-0">
+
   <!--Question-->
-     <h5>
-      <span style="border-bottom: solid 5px powderblue;">Question</span>
-     </h5>
-     <p>{{\Str::limit ($remind->question), 100}}</p>
+      <div class="card-body pb-0">
+       <h5>
+        <span style="border-bottom: solid 5px powderblue;">Question</span>
+       </h5>
+       <p>{{\Str::limit ($remind->question), 100}}</p>
 
   <!--Answer-->
-     <h5>
-      <span style="border-bottom: solid 5px powderblue;">Answer</span>
-     </h5>
-     <p class="mb-0">{{\Str::limit ($remind->answer), 100}}</p>
+       <h5>
+        <span style="border-bottom: solid 5px powderblue;">Answer</span>
+       </h5>
+       <p class="mb-0">{{\Str::limit ($remind->answer), 100}}</p>
     </div>
     
   <!--詳細画面移動ボタン-->
@@ -76,7 +75,7 @@
       </div>
      
     <!--消去-->
-      <!-- Button trigger modal -->
+      <!-- ボタン -->
       <div class="col-md-4 text-center text-dark">
         消去
         <a href="" data-toggle="modal" data-target="#exampleModal{{$remind->id}}">
@@ -84,7 +83,7 @@
         </a>
       </div>
 
-      <!-- Modal -->
+      <!-- モーダル -->
       <div class="modal fade" id="exampleModal{{$remind->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -110,10 +109,11 @@
  
     </div>
 
-  <!--線-->
-      <hr color=#ccc class="mt-0 mb-0">
-      @endforeach
-      @endif
+    <!--線-->
+    <hr color=#ccc class="mt-0 mb-0">
+    
+    @endforeach
+    @endif
 
     </div>
   </div>

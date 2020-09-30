@@ -18,8 +18,6 @@
 <!--カテゴリー名-->
       <h4 class="col-md-8 mb-0">{{ $categories->name }}</h4>
 
-      
-
 <!--一覧へ戻る-->
       <div class="mb-0　text-muted" style="font-size: 80%;">
         <a href="{{ action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name }}" class="text-muted">
@@ -92,10 +90,11 @@
         </tbody>
       </table>
       
-  <!--点線-->
+<!--点線-->
     <div class="col-md text-center">
      <hr class="dotline">
-    </div>      
+    </div> 
+    
 <!--編集(変数が複数形。indexは単数なので統一する）-->
       <div class="row justify-content-center mt-3">
         <h5 class="col-md-4 text-center">
@@ -149,8 +148,9 @@
 </div>
 
 </div>
-</div>
+
 
 <!--datetime.js-->
 <script src="{{ mix('js/datetime.js') }}"></script>
+
 @endsection

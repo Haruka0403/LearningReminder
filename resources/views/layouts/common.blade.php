@@ -15,6 +15,9 @@
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <!--Push.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.9/push.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -50,9 +53,16 @@ $.ajax({
   data: {},
   dataType: 'json' 
     })
+    
  .done(function(response) {
    console.log(response);
    
+// push通知
+  Push.create("Learning Reminder", {  
+    body: "リマインダー時間になりました！問題を解きましょう！",  
+    // icon: 'img/notification_icon.png',  
+  });
+
     var answer = response['answer'];
     var hint = response['hint'];
     
@@ -64,11 +74,13 @@ $.ajax({
     
     document.getElementById("show_answer").textContent = "正解は" + answer + "でした!";
 
-// モーダルfadeIn
+// モーダルfadeIn ID
   var js_remind_modal = document.getElementById('js_remind_modal');
   console.log(js_remind_modal);
+
   
-//1.問題表示→2.ヒント→3.降参,正解を表示してモーダルを閉じる
+//↓1.問題表示→2.ヒント→3.降参,正解を表示してモーダルを閉じるプロセス↓
+
 //1.問題表示→2.ヒント
  $("#remind_hint").hide();
  
@@ -86,7 +98,7 @@ $.ajax({
       $("#hide_giveup").show();
   });
 
-// 答え提出（ajax使わないパターン)
+// 答え提出
   $('#remind_submit').click('on', function(){
     var toSend = $('#remind_answer').val();
     if(toSend == answer){
@@ -107,8 +119,8 @@ $("#show_answer").hide();
 $("#remind_modal_close").hide();
   
   $(function(){
+  // $('#giveup').click('on', function(){ //動的に表示したボタンにイベントを付ける場合は以下のように記入する
   $(document).on('click','#giveup', function() {
-  // $('#giveup').click('on', function(){
     $('#hide_by_giveup').hide();
     $("#show_answer").show();
     $("#remind_modal_close").show();
@@ -116,18 +128,7 @@ $("#remind_modal_close").hide();
     });
   });
  
-  
-  // 降参提出
-  // $(function(){
-  // $(document).on('click','#remind_modal_close', function() {
-	 // document.resultform.action="/result";
-  // 	document.resultform.method="post";
-  // 	document.resultform.submit();
-  //   });
-  // });
-  
-  
-  
+// モーダルfadeIn
   $(js_remind_modal).fadeIn();
   modalon = true;
   return false;
@@ -143,112 +144,115 @@ $("#remind_modal_close").hide();
 
     
 <body>
-     <nav class="navbar navbar-expand shadow-sm">
-      <div class="container">
-             
-        <!--ロゴ-->
-        <a class ="navbar-brand text-muted" href="{{ action('CategoryController@top') }}">
-          Learning Reminder
-        </a> 
-        
-        
-        <ul class="navbar-nav ml-auto">
-          
-          <!--検索-->
-          <li class="nav-item">
-            <form action="{{ action('CategoryController@search') }}" method="get">
-              <div class="input-group">
-                
-                <!--検索フォーム-->
-                  <input type="text" class="form-control" name="cond_title" placeholder="search">
-                
-                <!--ボタン-->
-                  
-                  <span class="input-group-btn">
-                  {{ csrf_field() }}
-                  <button type="submit" class="btn btn-secondary form-control">
-                    <i class="fas fa-search"></i>
-                  </button>
-                  
-              </div> 
-           </form>
-          </li> 
-       
-       
-          <!--ログイン-->
-          @guest
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-          </li>
-                    
-          <!--ログアウト-->
-          @else
-         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-muted" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div id="navbarDropdown" class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route('logout') }}"
-                 onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
-                  {{ __('Logout') }}
-              </a>
-            
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              　@csrf
-              </form>
-            </div>
-          </li> 
-          @endguest
-          
-        </ul>
-      </div>      
-    </nav>
-
-    <section class="mt-3">
-      <div id="app">
-        @yield('content')
-      </div>
-    </section>
+ <nav class="navbar navbar-expand shadow-sm">
+  <div class="container">
+         
+    <!--ロゴ-->
+    <a class ="navbar-brand text-muted" href="{{ action('CategoryController@top') }}">
+      Learning Reminder
+    </a> 
     
-<!--通知モーダル-->
+    
+    <ul class="navbar-nav ml-auto">
+      
+      <!--検索-->
+      <li class="nav-item">
+        <form action="{{ action('CategoryController@search') }}" method="get">
+          <div class="input-group">
+            
+            <!--検索フォーム-->
+            <input type="text" class="form-control" name="cond_title" placeholder="search">
+            
+            <!--ボタン-->
+            <span class="input-group-btn">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-secondary form-control">
+              <i class="fas fa-search"></i>
+            </button>
+              
+          </div> 
+       </form>
+      </li> 
+   
+      <!--ログイン-->
+      @guest
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+      </li>
+                
+      <!--ログアウト-->
+      @else
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-muted" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+        {{ Auth::user()->name }} <span class="caret"></span>
+        </a>
+
+        <div id="navbarDropdown" class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('logout') }}"
+             onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+          </a>
+        
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          　@csrf
+          </form>
+        </div>
+      </li> 
+      @endguest
+      
+    </ul>
+  </div>      
+</nav>
+
+<section class="mt-3">
+  <div id="app">
+    @yield('content')
+  </div>
+</section>
+    
+<!--↓通知モーダルのview↓-->
       <div id="js_remind_modal" class="modal">
-       <div class="modal__bg js-remind-modal-close"></div> <!--影-->
+        <!--影-->
+        <div class="modal__bg js-remind-modal-close"></div> 
           <div class="modal__content">
 
-<!--ヒントを表示する-->
+          <!--ヒントを表示する-->
           <div id="hide_show_hint" style="font-size: 60%;" class="text-muted text-right">
             <a id="show_hint"><i class="far fa-lightbulb"></i></a>
             ヒントを表示する
           </div>
-<!--降参する-->
+          
+          <!--降参する-->
           <div id="hide_giveup" style="font-size: 60%;" class="text-muted text-right">
             <a id="giveup"><i class="far fa-dizzy"></i></a>
             降参する
           </div>
-<!--hint-->
-<!--          <p id="remind_hint"></p>-->
-<!--question-->
+
+          <!--question-->
           <h5>
             <span style="border-bottom: solid 5px powderblue;">問題</span>
           </h5>
             <p id="remind_question"></p>
-<!--回答-->
+            
+          <!--answer-->
           <h5>
             <span style="border-bottom: solid 5px powderblue;">解答</span>
           </h5>
           
+          <!--解答及びhint表示部-->
           <div id="hide_by_giveup">
             <form name="resultform" action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
-            
+              
               <input type="hidden" id="hidden_remind_id" name="id" value="">
-              <!--<input type="hidden" id='hint_clicked' name='hint' value="">-->
-            <!--hint-->
-              <p id="remind_hint"></p>
-              <input type="hidden" id="hidden_hint" name="hint" value="">
-              <input type="text" class="form-control" id="remind_answer" placeholder="答えを入力してください"><br>
               <input type="hidden" id='hidden_schedule_id' name="schedule_id" value="">
+              <input type="hidden" id="hidden_hint" name="hint" value="">
+              
+              <!--hint表示部-->
+              <p id="remind_hint"></p>
+              
+              <!--解答フォーム-->
+              <input type="text" class="form-control" id="remind_answer" placeholder="答えを入力してください"><br>
 
               {{ csrf_field() }}
               <button type="button" class="btn-border mt-1" id="remind_submit">提出！</button>
@@ -256,55 +260,27 @@ $("#remind_modal_close").hide();
             </form>
           </div>
           
+          <!--降参部-->
           <form action="{{action('CategoryController@result')}}" method="post" enctype="multipart/form-data">
-            <p id="show_answer"></p>
             <input type="hidden" id="hidden_giveup" name="giveup" value="">
             <input type="hidden" id="hidden_remind_id_giveup" name="id" value="">
             <input type="hidden" id='hidden_schedule_id_giveup' name="schedule_id" value="">
             
+            <!--答え表示部-->
+            <p id="show_answer"></p>
+            
             {{ csrf_field() }}
-            <!--<button type="button" class="btn-border mt-2" id="remind_modal_close">終了</button>-->
             <button type="submit" class="btn-border mt-2" id="remind_modal_close">終了</button>
           </form>
           
         </div>
       </div>
-<!--ここまで-->
+<!--通知モーダルここまで-->
 
-<!--結果モーダル-->
-
-
-
- <!--onloadで表示するモーダル-->
- <div id="result_modal" class="modal js-modal">
-  <div class="modal__bg js-modal-close"></div>
-  
-  <div class="modal__content">
-   <p>てすと</p>
-  </div>
-  
- </div>
-<!--ここまで-->
-    
-    <!--common_jquery.js-->
-    <script src="{{ mix('js/common_jquery.js') }}"></script>
+<!--common_jquery.js-->
+<script src="{{ mix('js/common_jquery.js') }}"></script>
     
 </body>
 </html>
-
-@if(isset($result_modal))
-<script>
-  // window.onload = function() {
-  //   var result = '{{$result_modal}}';
-  //     console.log('result');
-  //     if (result != null && result != '') {
-  //       var result_modal = document.getElementById(result_modal);
-  //       $(result_modal).fadeIn();
-  //       return false;
-  //     }
-  alert('テスト');
-</script>
-@endif
-
 
 @yield('js')

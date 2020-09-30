@@ -28,10 +28,10 @@
 
        </div>
      </div>
- 
+
+<!--↓編集画面↓-->
      <div class="card-body">
       <form action="{{ action('RemindController@update') }}" method="post" enctype="multipart/form-data">
-      
 <!--varidation-->
       @if (count($errors) > 0)
       <ul>
@@ -46,7 +46,6 @@
       <input type="hidden" name="id" value="{{ $reminds->id }}">
       <input type="hidden" name="category_id" value="{{$reminds->category_id}}">
       
-        
 <!--1.Question-->
         <div class="form-group mb-0">
          <label for="question" class="mb-0 h3">Question</label>
@@ -84,7 +83,6 @@
 <!--5.リマインド回数-->
       <h3>リマインド回数</h3>
 
-<!--編集画面-->
       <div id="demo-area" class="form-group">
         @php $i = 1; @endphp
         @foreach($schedules as $schedule)
