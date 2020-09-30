@@ -67,7 +67,7 @@
        <p>{{ $reminds->comment != null || '' ? $reminds->comment : '登録されていません' }}</p>
        <hr class="text-muted">
         
-<!--6.リマインド回数-->
+<!--5.リマインド回数-->
       <h5>
         <span style="border-bottom: solid 5px powderblue;">リマインド回数</span>
       </h5>
@@ -95,7 +95,7 @@
      <hr class="dotline">
     </div> 
     
-<!--編集(変数が複数形。indexは単数なので統一する）-->
+<!--編集-->
       <div class="row justify-content-center mt-3">
         <h5 class="col-md-4 text-center">
           編集

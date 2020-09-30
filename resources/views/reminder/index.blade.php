@@ -16,7 +16,7 @@
     </a>
   </div>
   
-<!--リマインダー中身一覧-->
+<!--↓リマインダー中身一覧↓-->
   <div class="col-md-6">
     <div class="card">
   <!--カテゴリータイトル-->
@@ -29,12 +29,12 @@
         リマインダーが登録されていません
       </div>
 
- <!--リマインダー中身-->
+ <!--↓リマインダー中身↓-->
       @else
       @foreach($reminds as $remind)
        
-  <!--リマインドid及びカテゴリーid-->
-      <input id="r_id" type="hidden" name="id" value="{{$remind->id}}">
+  <!--id(hidden)-->
+      <input type="hidden" name="id" value="{{$remind->id}}">
       <input type="hidden" name="category_id" value="{{$remind->category_id}}">
 
   <!--Question-->
@@ -49,7 +49,7 @@
         <span style="border-bottom: solid 5px powderblue;">Answer</span>
        </h5>
        <p class="mb-0">{{\Str::limit ($remind->answer), 100}}</p>
-    </div>
+      </div>
     
   <!--詳細画面移動ボタン-->
      <div class="text-right text-muted mr-3 mb-2" style="font-size: 80%;">
@@ -64,7 +64,7 @@
      <hr class="dotline m-0">
     </div>
 
-  <!--編集と消去部-->
+  <!--↓編集と消去部↓-->
     <div class="row justify-content-center m-2">
      <!--編集--> 
      <div class="col-md-4 text-center text-dark">

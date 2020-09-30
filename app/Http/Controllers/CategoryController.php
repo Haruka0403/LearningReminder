@@ -43,6 +43,7 @@ class CategoryController extends Controller
       
       return redirect('/');
     }
+
     
       public function update (Request $request)
     {
@@ -51,7 +52,6 @@ class CategoryController extends Controller
       if ($validator->fails()) {
         return redirect('/')->withErrors($validator)->withInput()->with('modal', 'modal02'.$request->id);
       }
-      
       
       //Modelからデータを取得
       $category = Category::find($request->id);

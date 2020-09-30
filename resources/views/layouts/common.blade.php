@@ -277,8 +277,8 @@ $("#remind_modal_close").hide();
       </div>
 <!--通知モーダルここまで-->
 
-<!--common_jquery.js-->
-<script src="{{ mix('js/common_jquery.js') }}"></script>
+<!--modal.js-->
+<script src="{{ mix('js/modal.js') }}"></script>
     
 </body>
 </html>
