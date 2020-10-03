@@ -15,18 +15,32 @@
             <span style="border-bottom: solid 5px powderblue;">結果発表</span>
           </h2>
           
-          <h5 class="mt-4">お疲れ様です。以下のリマインドが全て終了しました！</h5>
+          <p class="mt-4">お疲れ様です。以下のリマインドが全て終了しました！</p>
           
-          <div class= result_box>
-            <h5>カテゴリー : {{ $remind->category->name }}</h5><br>
-            <h5>問題 : {{ $remind->question }}</h5>
-            <h5 class="mb-0">解答 : {{ $remind->answer }} </h5>
-          </div>
+          <!--点線-->
+          <div class="col-md text-center">
+           <hr class="dotline">
+          </div> 
+
+            <h5>カテゴリー : {{ $remind->category->name }}</h5>
+            
+            <p>
+              <span style="border-bottom: solid 5px powderblue;">問題</span><br>
+              {{ $remind->question }}
+            </p>
+            
+            <p class="mb-0">
+              <span style="border-bottom: solid 5px powderblue;">解答</span><br>
+              {{ $remind->answer }} 
+            <p>
     
-          <div class="mt-3"> 
-            <h5>ヒントを見ないで正解した回数 <i class="fas fa-angle-double-right"></i> {{ $results[1] }}回</h5><br>
-            <h5>ヒントを見て正解した回数 <i class="fas fa-angle-double-right"></i> {{ $results[2] }}回<h5><br>
-            <h5>降参した回数 <i class="fas fa-angle-double-right"></i> {{ $results[3] }}回</h5><br>
+          <div class="ribbon13-wrapper"> 
+            <div class="ribbon13 mb-4">
+              <p>Congratulations!</p>
+            </div>
+            <p><i class="fas fa-laugh-squint"></i>ヒントを見ないで正解した回数 : {{ $results[1] }}回<p>
+            <p><i class="fas fa-grin"></i>ヒントを見て正解した回数 : {{ $results[2] }}回<p>
+            <p><i class="fas fa-dizzy"></i>降参した回数 : {{ $results[3] }}回<p>
           </div>
             
           <!--点線-->
@@ -35,12 +49,12 @@
           </div>          
           
           <!--詳細画面移動ボタン-->
-           <h5 class= "mt-3">
-             リマインダーを再設定する!
+            <h5 class= "mt-3">
+            リマインダーを再設定する!
               <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
-                <i class="fas fa-angle-double-right text-muted"></i>
+                <i class="fas fa-angle-double-right"></i>
               </a>
-           </h5>
+            </h5>
           
         </div>
       </div>
