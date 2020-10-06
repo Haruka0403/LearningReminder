@@ -13,14 +13,14 @@
     <div class="col-md-6">
     
       @foreach($reminds as $remind)    
-      <div class="card">
+      <div class="card mb-3">
       
         <!--id(hidden)-->
         <input type="hidden" name="id" value="{{$remind->id}}">
         <input type="hidden" name="category_id" value="{{--$remind->category_id--}}">
         
         <!--card-hedder-->
-        <div class="card-header mb-5">
+        <div class="card-header">
           <h4 class="mb-0">{{ $remind->category->name }}</h4>
         </div>
         

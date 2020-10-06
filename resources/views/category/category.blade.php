@@ -99,7 +99,7 @@
       @if (count($errors) > 0)
        <ul class='js-hidden'>
          @foreach($errors->all() as $e)
-           <li>{{ $e }}</li>
+           <p>{{ $e }}</p>
          @endforeach
        </ul>
       @endif
@@ -130,7 +130,7 @@
     @if (count($errors) > 0)
      <ul class="js-hidden">
        @foreach($errors->all() as $e)
-         <li>{{ $e }}</li>
+         <p>{{ $e }}</p>
        @endforeach
      </ul>
     @endif

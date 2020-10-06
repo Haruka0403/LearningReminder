@@ -4,7 +4,7 @@
 
 
 @section('content')
-<div class="container">
+<div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-md-7">
     
@@ -49,7 +49,7 @@
           </div>          
           
           <!--詳細画面移動ボタン-->
-            <h5 class= "mt-3y">
+            <h5 class= "mt-3">
             リマインダーを再設定する!
               <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
                 <i class="fas fa-angle-double-right"></i>
