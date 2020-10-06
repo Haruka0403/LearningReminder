@@ -56,8 +56,6 @@ class RemindController extends Controller
       
       $categories = $reminds->category;
       
-// detailと同じ現象
-      // $schedules = $reminds ->schedules;
       $schedules = Schedule::where('remind_id' , $reminds->id)->get();
       // dd($schedules);
       
@@ -70,9 +68,6 @@ class RemindController extends Controller
       
       // Varidation
       $this->validate($request, Remind::$rules);
-      
-// scheduleにvalidationかけるとなぜかremind_atに入力ができていないことになる(9/19)
-      // $this->validate($request, Schedule::$rules);
       
       //リマインドテーブルupdate
       $remind = Remind::find($request->id);
@@ -117,9 +112,7 @@ class RemindController extends Controller
     {
       $reminds = Remind::find($request->id);
       $categories = $reminds->category;
-// 質問1.なぜかこれでscheduleの取得ができない
-      // $schedules = $reminds ->schedules; 
-      // 代用
+      
       $schedules = Schedule::where('remind_id' , $reminds->id)->get();
       // dd($schedules);
       
