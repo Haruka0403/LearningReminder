@@ -10,9 +10,9 @@
 
   <!--index-->
     <div class="col-md-12 pb-3"  style="font-size: 80%;">
-      <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー</a>
+      <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー 一覧</a>
       ＞ 
-      <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">リマインダー{{ $categories->name }}一覧</a>
+      <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">リマインダー【{{ $categories->name }}】一覧</a>
       ＞
       リマインダー詳細
     </div>    
@@ -21,23 +21,13 @@
   
     <div class="col-md-7">
       <div class="card mb-5">
-      
+
+<!--カテゴリー名-->      
       <div class="card-header">
-       <div class="row">
-
-<!--カテゴリー名-->
-      <h4 class="col-md-8 mb-0">{{ $categories->name }}</h4>
-
-<!--一覧へ戻る-->
-      <div class="mb-0　text-muted" style="font-size: 80%;">
-        <a href="{{ action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name }}" class="text-muted">
-          <i class="fas fa-backward"></i>
-        </a>
-        一覧へ戻る
+        <div class="row">
+          <h4 class="col-md-8 mb-0">{{ $categories->name }}</h4>
+        </div>
       </div>
-
-       </div>
-     </div>
  
      <div class="card-body">
 

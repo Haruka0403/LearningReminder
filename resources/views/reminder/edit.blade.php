@@ -10,9 +10,9 @@
     
   <!--index-->
   <div class="col-md-12 pb-3"  style="font-size: 80%;">
-    <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー</a>
+    <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー 一覧</a>
     ＞ 
-    <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">リマインダー{{ $categories->name }}一覧</a>
+    <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">リマインダー【{{ $categories->name }}】一覧</a>
     ＞
     リマインダー編集
   </div>
