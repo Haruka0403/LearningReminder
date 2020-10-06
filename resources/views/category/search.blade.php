@@ -11,7 +11,10 @@
 
 
     <div class="col-md-6">
-    
+      @if (0 == count($reminds))
+      <p class ="mt-1">一致するリマインダーが見つかりませんでした。</p>
+      
+      @else
       @foreach($reminds as $remind)    
       <div class="card mb-3">
       
@@ -49,7 +52,7 @@
       
       </div>
       @endforeach
-    
+    @endif
     </div>
 
   </div>

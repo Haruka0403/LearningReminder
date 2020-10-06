@@ -98,9 +98,15 @@ class CategoryController extends Controller
         ->orWhere('comment', 'like', '%'.$cond_title.'%')
         ->get();
         // dd($reminds);
+        // gettype($reminds);
+        // if($reminds = '' || null){
+        // $nodata = '一致するデータがありません';
+        // dd($nodata);
+      
+        // }
       }
       
-      return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title ]);
+      return view('category.search',['reminds'=>$reminds , 'cond_title'=>$cond_title]);
     }
 
     
