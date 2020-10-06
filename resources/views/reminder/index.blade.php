@@ -6,6 +6,13 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
+  
+<!--index-->
+  <div class="col-md-12 pb-3"  style="font-size: 80%;">
+    <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー</a>
+    ＞ 
+    リマインダー{{$categories->name}}一覧
+  </div>
 
   <h2 class="col-md-6 mb-3">リマインダー</h2>
 
@@ -18,19 +25,20 @@
   
 <!--↓リマインダー中身一覧↓-->
   <div class="col-md-6">
-    <div class="card">
+    <div class="card mb-5">
   <!--カテゴリータイトル-->
       <div class="card-header">
-        <h4 class="mb-0">{{$categories->name}}</h4>
+        <div class="row">
+          <h4 class="col-md-8 mb-0">{{$categories->name}}</h4>
+        </div>
       </div>
-
-      @if (0 == count($categories->reminds))
+ <!--↓リマインダー中身↓-->
+    @if (0 == count($categories->reminds))
       <div class="card-body">
         リマインダーが登録されていません
       </div>
 
- <!--↓リマインダー中身↓-->
-      @else
+    @else
       @foreach($reminds as $remind)
        
   <!--id(hidden)-->

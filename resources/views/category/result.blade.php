@@ -49,7 +49,7 @@
           </div>          
           
           <!--詳細画面移動ボタン-->
-            <h5 class= "mt-3">
+            <h5 class= "mt-3y">
             リマインダーを再設定する!
               <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
                 <i class="fas fa-angle-double-right"></i>

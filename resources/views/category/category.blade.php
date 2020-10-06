@@ -5,7 +5,7 @@
 
 @section('content')
  
- <div class="container">
+ <div class="container mt-3">
   <div class="row justify-content-center">
    <h2 class="col-md-6 mb-3">カテゴリー</h2>
    

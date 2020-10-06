@@ -208,7 +208,7 @@ $("#remind_modal_close").hide();
   </div>      
 </nav>
 
-<section class="mt-3">
+<section class="mt-1">
   <div id="app">
     @yield('content')
   </div>

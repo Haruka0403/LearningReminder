@@ -7,10 +7,20 @@
   
 <div class="container">
   <div class="row justify-content-center">
-    <h2 class="col-md-9 mb-3">リマインダー　詳細</h2>
+
+  <!--index-->
+    <div class="col-md-12 pb-3"  style="font-size: 80%;">
+      <a href="{{ action('CategoryController@top') }}" class="text-muted">カテゴリー</a>
+      ＞ 
+      <a href="{{action('CategoryController@remind') . '?id=' . $categories->id . '&name=' . $categories->name}}" class="text-muted">リマインダー{{ $categories->name }}一覧</a>
+      ＞
+      リマインダー詳細
+    </div>    
+    
+    <h2 class="col-md-8 mb-3">リマインダー　詳細</h2>
   
     <div class="col-md-7">
-      <div class="card">
+      <div class="card mb-5">
       
       <div class="card-header">
        <div class="row">

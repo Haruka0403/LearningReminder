@@ -13,14 +13,14 @@
     <div class="col-md-6">
     
       @foreach($reminds as $remind)    
-      <div class="card mb-3">
+      <div class="card">
       
         <!--id(hidden)-->
         <input type="hidden" name="id" value="{{$remind->id}}">
         <input type="hidden" name="category_id" value="{{--$remind->category_id--}}">
         
         <!--card-hedder-->
-        <div class="card-header">
+        <div class="card-header mb-5">
           <h4 class="mb-0">{{ $remind->category->name }}</h4>
         </div>
         
@@ -42,8 +42,8 @@
         <!--詳細画面移動ボタン-->
         <div class="text-right text-muted mr-3 mb-2" style="font-size: 80%;">
           詳細
-          <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}">
-            <i class="fas fa-angle-double-right text-muted"></i>
+          <a href="{{ action('RemindController@detail',['id' => $remind->id ]) }}" class="text-muted">
+            <i class="fas fa-angle-double-right"></i>
           </a>
         </div>
       
