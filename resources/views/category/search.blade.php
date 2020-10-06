@@ -7,7 +7,7 @@
 <div class="container">
   <div class="row justify-content-center">
     
-    <h2 class="col-md-8 mb-3">【{{$cond_title}}】の検索結果一覧</h2>
+    <h2 class="col-md-8 mt-3">【{{$cond_title}}】の検索結果一覧</h2>
 
 
     <div class="col-md-6">
