@@ -190,11 +190,12 @@ $("#remind_modal_close").hide();
         {{ Auth::user()->name }} <span class="caret"></span>
         </a>
 
-        <div id="navbarDropdown" class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ route('logout') }}"
+        <div id="navbarDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item text-center p-0" href="{{ route('logout') }}"
              onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
+            ログアウト
+              <!--{{ __('Logout') }}-->
           </a>
         
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
